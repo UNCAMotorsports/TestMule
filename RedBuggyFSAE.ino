@@ -83,6 +83,7 @@ void encPulseRight(){
 
 ISR(SPI_STC_vect)
 {
+	// Test
 	byte val = 0;
 
 	val = leftRPM >> 8;
