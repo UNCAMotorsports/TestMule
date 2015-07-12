@@ -83,9 +83,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portOutputRegister(P)
 #define portInputRegister(P)
 #define portModeRegister(P)
-#include <RedBuggyFSAE.ino>
-#include <SPI_anything.cpp>
-#include <mcp_can.cpp>
-#include <mcp_can.h>
-#include <mcp_can_dfs.h>
+#include <CANSendTest.ino>
 #endif

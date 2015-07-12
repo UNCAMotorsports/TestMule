@@ -117,6 +117,12 @@
     <ClInclude Include="Visual Micro\.RedBuggy.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mcp_can.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mcp_can_dfs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\abi.cpp">
@@ -207,6 +213,9 @@
       <Filter>_libraries\Wire\utility</Filter>
     </ClCompile>
     <ClCompile Include="SPI_anything.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mcp_can.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

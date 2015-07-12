@@ -44,10 +44,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard;C:\Users\Paul\Documents\GitHub\RedBuggy;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar\utility;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\variants\standard;C:\Users\Paul\Documents\GitHub\RedBuggy;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar\utility;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725\utility;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\libraries\SPI;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\libraries\SPI\utility;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino 1_6_x\libraries;C:\Program Files (x86)\Arduino 1_6_x\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries;C:\Program Files (x86)\Arduino 1_6_x\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino 1_6_x\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino 1_6_x\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\Paul\Documents\GitHub\RedBuggy\Visual Micro\.RedBuggy.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;F_CPU=16000000L;ARDUINO=164;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;F_CPU=16000000L;ARDUINO=165;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -97,6 +97,12 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" />
     <ClInclude Include="..\libraries\Adafruit_DotStar\Adafruit_DotStar.h" />
     <ClInclude Include="..\libraries\Adafruit_MCP4725\Adafruit_MCP4725.h" />
+    <ClInclude Include="mcp_can.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="mcp_can_dfs.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.RedBuggy.vsarduino.h" />
     <ClInclude Include="Visual Micro\.RedBuggyFSAE.vsarduino.h" />
   </ItemGroup>
@@ -130,6 +136,7 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\Wire.cpp" />
     <ClCompile Include="..\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp" />
     <ClCompile Include="..\libraries\Adafruit_MCP4725\Adafruit_MCP4725.cpp" />
+    <ClCompile Include="mcp_can.cpp" />
     <ClCompile Include="SPI_anything.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

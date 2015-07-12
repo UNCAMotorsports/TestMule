@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RedBuggyFSAE", "RedBuggyFSAE.vcxproj", "{BC994FE0-EB14-49B3-9163-2C10D5023B39}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CANSendTest", "CANSendTest\CANSendTest.vcxproj", "{A02D1154-06E4-4008-964D-6471B32B031A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CANRecvTest", "CANRecvTest\CANRecvTest.vcxproj", "{8FCC5F50-1F81-4012-804F-27027874EE19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +19,14 @@ Global
 		{BC994FE0-EB14-49B3-9163-2C10D5023B39}.Debug|Win32.Build.0 = Debug|Win32
 		{BC994FE0-EB14-49B3-9163-2C10D5023B39}.Release|Win32.ActiveCfg = Release|Win32
 		{BC994FE0-EB14-49B3-9163-2C10D5023B39}.Release|Win32.Build.0 = Release|Win32
+		{A02D1154-06E4-4008-964D-6471B32B031A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A02D1154-06E4-4008-964D-6471B32B031A}.Debug|Win32.Build.0 = Debug|Win32
+		{A02D1154-06E4-4008-964D-6471B32B031A}.Release|Win32.ActiveCfg = Release|Win32
+		{A02D1154-06E4-4008-964D-6471B32B031A}.Release|Win32.Build.0 = Release|Win32
+		{8FCC5F50-1F81-4012-804F-27027874EE19}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8FCC5F50-1F81-4012-804F-27027874EE19}.Debug|Win32.Build.0 = Debug|Win32
+		{8FCC5F50-1F81-4012-804F-27027874EE19}.Release|Win32.ActiveCfg = Release|Win32
+		{8FCC5F50-1F81-4012-804F-27027874EE19}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
