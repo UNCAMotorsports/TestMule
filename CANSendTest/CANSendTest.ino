@@ -6,6 +6,7 @@
 MCP_CAN CAN0(8);                                      // Set CS to pin 10
 int val, count;
 long timer;
+
 void setup()
 {
 	Serial.begin(115200);

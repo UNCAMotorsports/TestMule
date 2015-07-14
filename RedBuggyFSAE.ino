@@ -1,8 +1,9 @@
 
 #include <SPI.h>
-#include <Adafruit_DotStar.h>
+#include "Adafruit_DotStar.h"
 #include <Wire.h>
-#include <Adafruit_MCP4725.h>
+#include "Adafruit_MCP4725.h"
+#include "mcp_can.h"
 
 #define DEBUG 1
 
@@ -28,6 +29,8 @@ uint32_t lastCalcTime;
 int16_t tpsValue;
 int16_t steerVal;
 
+MCP_CAN CAN0(8);
+
 void setup()
 {
 	pinMode(2, INPUT);		// Left motor Encoder
@@ -42,8 +45,10 @@ void setup()
 	attachInterrupt(rightEncInt, encPulseRight, RISING);		// Attach output of right motor encoder here
 	lastCalcTime = micros();
 
-	SPCR |= _BV(SPE);
-	SPI.attachInterrupt();
+	if (CAN0.begin(CAN_1000KBPS) == CAN_OK) 
+		Serial.print("can init ok!!\r\n");
+	else 
+		Serial.print("Can init fail!!\r\n");
 }
 
 void loop()
@@ -70,7 +75,6 @@ void loop()
 		Serial.print(' ');
 		Serial.println(rightRPM);*/
 	}
-
 }
 
 void encPulseLeft(){
@@ -79,27 +83,6 @@ void encPulseLeft(){
 
 void encPulseRight(){
 	rightCount++;
-}
-
-ISR(SPI_STC_vect)
-{
-	// Test
-	byte val = 0;
-
-	val = leftRPM >> 8;
-	SPI.transfer(val);
-
-	val = leftRPM;
-	SPI.transfer(val);
-
-	val = rightRPM >> 8;
-	SPI.transfer(val);
-
-	val = rightRPM;
-	SPI.transfer(val);
-
-	val = '\n';
-	SPI.transfer(val);
 }
 
 float calcPhase(){
