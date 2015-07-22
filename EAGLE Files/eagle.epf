@@ -393,7 +393,7 @@ UsedLibrary="C:/EAGLE-7.2.0/lbr/elektro/eib-busch-jaeger.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="-8 -8 591 391"
+Loc="-600 0 -1 399"
 State=1
 Number=0
 
