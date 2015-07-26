@@ -19642,6 +19642,211 @@ Solder type</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="con-molex">
+<description>&lt;b&gt;Molex Connectors&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="5566-6">
+<description>&lt;b&gt;Mini FIT connector 6 pol&lt;/b&gt;&lt;p&gt;
+Source: http://www.molex.com</description>
+<wire x1="-6.8" y1="4.5" x2="6.8" y2="4.5" width="0.254" layer="21"/>
+<wire x1="6.8" y1="4.5" x2="6.8" y2="-2.2" width="0.254" layer="21"/>
+<wire x1="6.8" y1="-3.3" x2="6.8" y2="-4.9" width="0.254" layer="21"/>
+<wire x1="6.8" y1="-4.9" x2="-6.8" y2="-4.9" width="0.254" layer="21"/>
+<wire x1="-6.8" y1="-4.9" x2="-6.8" y2="4.5" width="0.254" layer="21"/>
+<wire x1="-10.3" y1="3.2" x2="-7.5" y2="3.2" width="0.254" layer="21" curve="-114.529547"/>
+<wire x1="-10.3" y1="1.4" x2="-7.5" y2="1.4" width="0.254" layer="21" curve="114.529547"/>
+<wire x1="-10.3" y1="3.2" x2="-10.3" y2="1.4" width="0.254" layer="21"/>
+<wire x1="-7.6" y1="3.3" x2="-6.9" y2="3.3" width="0.254" layer="21"/>
+<wire x1="-7.6" y1="1.3" x2="-6.9" y2="1.3" width="0.254" layer="21"/>
+<wire x1="7.5" y1="1.4" x2="10.3" y2="1.4" width="0.254" layer="21" curve="114.529547"/>
+<wire x1="7.5" y1="3.2" x2="10.3" y2="3.2" width="0.254" layer="21" curve="-114.529547"/>
+<wire x1="10.3" y1="1.4" x2="10.3" y2="3.2" width="0.254" layer="21"/>
+<wire x1="7.6" y1="1.3" x2="6.9" y2="1.3" width="0.254" layer="21"/>
+<wire x1="7.6" y1="3.3" x2="6.9" y2="3.3" width="0.254" layer="21"/>
+<wire x1="6.8" y1="-2.2" x2="6.8" y2="-3.3" width="0.254" layer="21" curve="-180"/>
+<wire x1="-2.1" y1="6.3" x2="2.1" y2="6.3" width="0.254" layer="27"/>
+<wire x1="-2.1" y1="6.3" x2="-2.1" y2="4.6" width="0.254" layer="27"/>
+<wire x1="2.1" y1="6.3" x2="2.1" y2="4.6" width="0.254" layer="27"/>
+<pad name="1" x="4.2" y="-2.75" drill="1.4" shape="square"/>
+<pad name="2" x="0" y="-2.75" drill="1.4" shape="square"/>
+<pad name="3" x="-4.2" y="-2.75" drill="1.4" shape="square"/>
+<pad name="6" x="-4.2" y="2.75" drill="1.4" shape="square"/>
+<pad name="5" x="0" y="2.75" drill="1.4" shape="square"/>
+<pad name="4" x="4.2" y="2.75" drill="1.4" shape="square"/>
+<text x="-1.27" y="-6.985" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.54" y="6.985" size="1.27" layer="27">&gt;VALUE</text>
+<hole x="8.9" y="2.29" drill="3"/>
+<hole x="-8.9" y="2.29" drill="3"/>
+</package>
+<package name="5566-24">
+<description>&lt;b&gt;Mini FIT connector 24 pol&lt;/b&gt;&lt;p&gt;
+Source: http://www.molex.com</description>
+<wire x1="-25.7" y1="4.5" x2="25.7" y2="4.5" width="0.254" layer="21"/>
+<wire x1="25.7" y1="4.5" x2="25.7" y2="-2.2" width="0.254" layer="21"/>
+<wire x1="25.7" y1="-3.3" x2="25.7" y2="-4.9" width="0.254" layer="21"/>
+<wire x1="25.7" y1="-4.9" x2="-25.7" y2="-4.9" width="0.254" layer="21"/>
+<wire x1="-25.7" y1="-4.9" x2="-25.7" y2="4.5" width="0.254" layer="21"/>
+<wire x1="-29.2" y1="3.2" x2="-26.4" y2="3.2" width="0.254" layer="21" curve="-114.529547"/>
+<wire x1="-29.2" y1="1.4" x2="-26.4" y2="1.4" width="0.254" layer="21" curve="114.529547"/>
+<wire x1="-29.2" y1="3.2" x2="-29.2" y2="1.4" width="0.254" layer="21"/>
+<wire x1="-26.5" y1="3.3" x2="-25.8" y2="3.3" width="0.254" layer="21"/>
+<wire x1="-26.5" y1="1.3" x2="-25.8" y2="1.3" width="0.254" layer="21"/>
+<wire x1="26.4" y1="1.4" x2="29.2" y2="1.4" width="0.254" layer="21" curve="114.529547"/>
+<wire x1="26.4" y1="3.2" x2="29.2" y2="3.2" width="0.254" layer="21" curve="-114.529547"/>
+<wire x1="29.2" y1="1.4" x2="29.2" y2="3.2" width="0.254" layer="21"/>
+<wire x1="26.5" y1="1.3" x2="25.8" y2="1.3" width="0.254" layer="21"/>
+<wire x1="26.5" y1="3.3" x2="25.8" y2="3.3" width="0.254" layer="21"/>
+<wire x1="25.7" y1="-2.2" x2="25.7" y2="-3.3" width="0.254" layer="21" curve="-180"/>
+<wire x1="-2.1" y1="6.3" x2="2.1" y2="6.3" width="0.254" layer="27"/>
+<wire x1="-2.1" y1="6.3" x2="-2.1" y2="4.6" width="0.254" layer="27"/>
+<wire x1="2.1" y1="6.3" x2="2.1" y2="4.6" width="0.254" layer="27"/>
+<pad name="1" x="23.1" y="-2.75" drill="1.4" shape="square"/>
+<pad name="2" x="18.9" y="-2.75" drill="1.4" shape="square"/>
+<pad name="3" x="14.7" y="-2.75" drill="1.4" shape="square"/>
+<pad name="4" x="10.5" y="-2.75" drill="1.4" shape="square"/>
+<pad name="5" x="6.3" y="-2.75" drill="1.4" shape="square"/>
+<pad name="6" x="2.1" y="-2.75" drill="1.4" shape="square"/>
+<pad name="7" x="-2.1" y="-2.75" drill="1.4" shape="square"/>
+<pad name="8" x="-6.3" y="-2.75" drill="1.4" shape="square"/>
+<pad name="9" x="-10.5" y="-2.75" drill="1.4" shape="square"/>
+<pad name="10" x="-14.7" y="-2.75" drill="1.4" shape="square"/>
+<pad name="11" x="-18.9" y="-2.75" drill="1.4" shape="square"/>
+<pad name="13" x="23.1" y="2.75" drill="1.4" shape="square"/>
+<pad name="14" x="18.9" y="2.75" drill="1.4" shape="square"/>
+<pad name="15" x="14.7" y="2.75" drill="1.4" shape="square"/>
+<pad name="16" x="10.5" y="2.75" drill="1.4" shape="square"/>
+<pad name="17" x="6.3" y="2.75" drill="1.4" shape="square"/>
+<pad name="18" x="2.1" y="2.75" drill="1.4" shape="square"/>
+<pad name="19" x="-2.1" y="2.75" drill="1.4" shape="square"/>
+<pad name="20" x="-6.3" y="2.75" drill="1.4" shape="square"/>
+<pad name="21" x="-10.5" y="2.75" drill="1.4" shape="square"/>
+<pad name="22" x="-14.7" y="2.75" drill="1.4" shape="square"/>
+<pad name="12" x="-23.1" y="-2.75" drill="1.4" shape="square"/>
+<pad name="23" x="-18.9" y="2.75" drill="1.4" shape="square"/>
+<pad name="24" x="-23.1" y="2.75" drill="1.4" shape="square"/>
+<text x="20.32" y="-6.985" size="1.27" layer="25">&gt;NAME</text>
+<text x="-24.765" y="-6.985" size="1.27" layer="27">&gt;VALUE</text>
+<hole x="27.8" y="2.29" drill="3"/>
+<hole x="-27.8" y="2.29" drill="3"/>
+</package>
+</packages>
+<symbols>
+<symbol name="MV">
+<wire x1="1.27" y1="0" x2="0" y2="0" width="0.6096" layer="94"/>
+<text x="2.54" y="-0.762" size="1.524" layer="95">&gt;NAME</text>
+<text x="-0.762" y="1.397" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="S" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
+</symbol>
+<symbol name="M">
+<wire x1="1.27" y1="0" x2="0" y2="0" width="0.6096" layer="94"/>
+<text x="2.54" y="-0.762" size="1.524" layer="95">&gt;NAME</text>
+<pin name="S" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="5566-6" prefix="X">
+<description>&lt;b&gt;Mini FIT connector 6 pol&lt;/b&gt;&lt;p&gt;
+Source: http://www.molex.com</description>
+<gates>
+<gate name="-1" symbol="MV" x="0" y="5.08" addlevel="always"/>
+<gate name="-2" symbol="M" x="0" y="2.54" addlevel="always"/>
+<gate name="-3" symbol="M" x="0" y="0" addlevel="always"/>
+<gate name="-4" symbol="M" x="0" y="-2.54" addlevel="always"/>
+<gate name="-5" symbol="M" x="0" y="-5.08" addlevel="always"/>
+<gate name="-6" symbol="M" x="0" y="-7.62" addlevel="always"/>
+</gates>
+<devices>
+<device name="" package="5566-6">
+<connects>
+<connect gate="-1" pin="S" pad="1"/>
+<connect gate="-2" pin="S" pad="2"/>
+<connect gate="-3" pin="S" pad="3"/>
+<connect gate="-4" pin="S" pad="4"/>
+<connect gate="-5" pin="S" pad="5"/>
+<connect gate="-6" pin="S" pad="6"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="95566-61002" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="22K8620" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="5566-24" prefix="X">
+<description>&lt;b&gt;Mini FIT connector 24 pol&lt;/b&gt;&lt;p&gt;
+Source: http://www.molex.com</description>
+<gates>
+<gate name="-1" symbol="MV" x="0" y="27.94" addlevel="always"/>
+<gate name="-2" symbol="M" x="0" y="25.4" addlevel="always"/>
+<gate name="-3" symbol="M" x="0" y="22.86" addlevel="always"/>
+<gate name="-4" symbol="M" x="0" y="20.32" addlevel="always"/>
+<gate name="-5" symbol="M" x="0" y="17.78" addlevel="always"/>
+<gate name="-6" symbol="M" x="0" y="15.24" addlevel="always"/>
+<gate name="-7" symbol="M" x="0" y="12.7" addlevel="always"/>
+<gate name="-8" symbol="M" x="0" y="10.16" addlevel="always"/>
+<gate name="-9" symbol="M" x="0" y="7.62" addlevel="always"/>
+<gate name="-10" symbol="M" x="0" y="5.08" addlevel="always"/>
+<gate name="-11" symbol="M" x="0" y="2.54" addlevel="always"/>
+<gate name="-12" symbol="M" x="0" y="0" addlevel="always"/>
+<gate name="-13" symbol="M" x="0" y="-2.54" addlevel="always"/>
+<gate name="-14" symbol="M" x="0" y="-5.08" addlevel="always"/>
+<gate name="-15" symbol="M" x="0" y="-7.62" addlevel="always"/>
+<gate name="-16" symbol="M" x="0" y="-10.16" addlevel="always"/>
+<gate name="-17" symbol="M" x="0" y="-12.7" addlevel="always"/>
+<gate name="-18" symbol="M" x="0" y="-15.24" addlevel="always"/>
+<gate name="-19" symbol="M" x="0" y="-17.78" addlevel="always"/>
+<gate name="-20" symbol="M" x="0" y="-20.32" addlevel="always"/>
+<gate name="-21" symbol="M" x="0" y="-22.86" addlevel="always"/>
+<gate name="-22" symbol="M" x="0" y="-25.4" addlevel="always"/>
+<gate name="-23" symbol="M" x="0" y="-27.94" addlevel="always"/>
+<gate name="-24" symbol="M" x="0" y="-30.48" addlevel="always"/>
+</gates>
+<devices>
+<device name="" package="5566-24">
+<connects>
+<connect gate="-1" pin="S" pad="1"/>
+<connect gate="-10" pin="S" pad="10"/>
+<connect gate="-11" pin="S" pad="11"/>
+<connect gate="-12" pin="S" pad="12"/>
+<connect gate="-13" pin="S" pad="13"/>
+<connect gate="-14" pin="S" pad="14"/>
+<connect gate="-15" pin="S" pad="15"/>
+<connect gate="-16" pin="S" pad="16"/>
+<connect gate="-17" pin="S" pad="17"/>
+<connect gate="-18" pin="S" pad="18"/>
+<connect gate="-19" pin="S" pad="19"/>
+<connect gate="-2" pin="S" pad="2"/>
+<connect gate="-20" pin="S" pad="20"/>
+<connect gate="-21" pin="S" pad="21"/>
+<connect gate="-22" pin="S" pad="22"/>
+<connect gate="-23" pin="S" pad="23"/>
+<connect gate="-24" pin="S" pad="24"/>
+<connect gate="-3" pin="S" pad="3"/>
+<connect gate="-4" pin="S" pad="4"/>
+<connect gate="-5" pin="S" pad="5"/>
+<connect gate="-6" pin="S" pad="6"/>
+<connect gate="-7" pin="S" pad="7"/>
+<connect gate="-8" pin="S" pad="8"/>
+<connect gate="-9" pin="S" pad="9"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -19755,11 +19960,17 @@ Solder type</description>
 <part name="R27" library="rcl" deviceset="R-US_" device="R1206"/>
 <part name="R28" library="rcl" deviceset="R-US_" device="R1206"/>
 <part name="R29" library="rcl" deviceset="R-US_" device="R1206" value="10k"/>
+<part name="X2" library="con-molex" deviceset="5566-6" device=""/>
+<part name="X3" library="con-molex" deviceset="5566-6" device=""/>
+<part name="X4" library="con-molex" deviceset="5566-24" device=""/>
+<part name="X5" library="con-molex" deviceset="5566-24" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 <text x="243.84" y="53.34" size="1.778" layer="95">CAN Bus</text>
+<text x="200.66" y="-63.5" size="1.778" layer="94">For UNCA Motorsports 2015-2016</text>
+<text x="285.496" y="-85.09" size="3.81" layer="94" ratio="10">A</text>
 </plain>
 <instances>
 <instance part="R1" gate="G$1" x="-50.8" y="121.92" rot="R90"/>
@@ -19889,6 +20100,66 @@ Solder type</description>
 <instance part="R27" gate="G$1" x="-38.1" y="121.92" rot="R90"/>
 <instance part="R28" gate="G$1" x="-35.56" y="121.92" rot="R90"/>
 <instance part="R29" gate="G$1" x="-33.02" y="121.92" rot="R90"/>
+<instance part="X2" gate="-1" x="-88.9" y="177.8"/>
+<instance part="X2" gate="-2" x="-88.9" y="175.26"/>
+<instance part="X2" gate="-3" x="-88.9" y="172.72"/>
+<instance part="X2" gate="-4" x="-88.9" y="170.18"/>
+<instance part="X2" gate="-5" x="-88.9" y="167.64"/>
+<instance part="X2" gate="-6" x="-88.9" y="165.1"/>
+<instance part="X3" gate="-1" x="-88.9" y="160.02"/>
+<instance part="X3" gate="-2" x="-88.9" y="157.48"/>
+<instance part="X3" gate="-3" x="-88.9" y="154.94"/>
+<instance part="X3" gate="-4" x="-88.9" y="152.4"/>
+<instance part="X3" gate="-5" x="-88.9" y="149.86"/>
+<instance part="X3" gate="-6" x="-88.9" y="147.32"/>
+<instance part="X4" gate="-1" x="25.4" y="177.8"/>
+<instance part="X4" gate="-2" x="25.4" y="175.26"/>
+<instance part="X4" gate="-3" x="25.4" y="172.72"/>
+<instance part="X4" gate="-4" x="25.4" y="170.18"/>
+<instance part="X4" gate="-5" x="25.4" y="167.64"/>
+<instance part="X4" gate="-6" x="25.4" y="165.1"/>
+<instance part="X4" gate="-7" x="25.4" y="162.56"/>
+<instance part="X4" gate="-8" x="25.4" y="160.02"/>
+<instance part="X4" gate="-9" x="25.4" y="157.48"/>
+<instance part="X4" gate="-10" x="25.4" y="154.94"/>
+<instance part="X4" gate="-11" x="25.4" y="152.4"/>
+<instance part="X4" gate="-12" x="25.4" y="149.86"/>
+<instance part="X4" gate="-13" x="25.4" y="147.32"/>
+<instance part="X4" gate="-14" x="25.4" y="144.78"/>
+<instance part="X4" gate="-15" x="25.4" y="142.24"/>
+<instance part="X4" gate="-16" x="25.4" y="139.7"/>
+<instance part="X4" gate="-17" x="25.4" y="137.16"/>
+<instance part="X4" gate="-18" x="25.4" y="134.62"/>
+<instance part="X4" gate="-19" x="25.4" y="132.08"/>
+<instance part="X4" gate="-20" x="25.4" y="129.54"/>
+<instance part="X4" gate="-21" x="25.4" y="127"/>
+<instance part="X4" gate="-22" x="25.4" y="124.46"/>
+<instance part="X4" gate="-23" x="25.4" y="121.92"/>
+<instance part="X4" gate="-24" x="25.4" y="119.38"/>
+<instance part="X5" gate="-1" x="25.4" y="114.3"/>
+<instance part="X5" gate="-2" x="25.4" y="111.76"/>
+<instance part="X5" gate="-3" x="25.4" y="109.22"/>
+<instance part="X5" gate="-4" x="25.4" y="106.68"/>
+<instance part="X5" gate="-5" x="25.4" y="104.14"/>
+<instance part="X5" gate="-6" x="25.4" y="101.6"/>
+<instance part="X5" gate="-7" x="25.4" y="99.06"/>
+<instance part="X5" gate="-8" x="25.4" y="96.52"/>
+<instance part="X5" gate="-9" x="25.4" y="93.98"/>
+<instance part="X5" gate="-10" x="25.4" y="91.44"/>
+<instance part="X5" gate="-11" x="25.4" y="88.9"/>
+<instance part="X5" gate="-12" x="25.4" y="86.36"/>
+<instance part="X5" gate="-13" x="25.4" y="83.82"/>
+<instance part="X5" gate="-14" x="25.4" y="81.28"/>
+<instance part="X5" gate="-15" x="25.4" y="78.74"/>
+<instance part="X5" gate="-16" x="25.4" y="76.2"/>
+<instance part="X5" gate="-17" x="25.4" y="73.66"/>
+<instance part="X5" gate="-18" x="25.4" y="71.12"/>
+<instance part="X5" gate="-19" x="25.4" y="68.58"/>
+<instance part="X5" gate="-20" x="25.4" y="66.04"/>
+<instance part="X5" gate="-21" x="25.4" y="63.5"/>
+<instance part="X5" gate="-22" x="25.4" y="60.96"/>
+<instance part="X5" gate="-23" x="25.4" y="58.42"/>
+<instance part="X5" gate="-24" x="25.4" y="55.88"/>
 </instances>
 <busses>
 <bus name="CANH,CANL,GND">
