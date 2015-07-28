@@ -60,7 +60,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard;C:\Users\Paul\Dropbox\School\FSAE\2015-2016\RedBuggy;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_DotStar\utility;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries\Adafruit_MCP4725\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Paul\Dropbox\Electronics\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard;C:\Users\Paul\Dropbox\School\FSAE\2015-2016\RedBuggy;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\SPI\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Paul\Documents\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -98,6 +98,12 @@
     <ClInclude Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\variants\standard\pins_arduino.h" />
     <ClInclude Include="..\libraries\Adafruit_DotStar\Adafruit_DotStar.h" />
     <ClInclude Include="..\libraries\Adafruit_MCP4725\Adafruit_MCP4725.h" />
+    <ClInclude Include="Adafruit_DotStar.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Adafruit_MCP4725.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="mcp_can.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -108,7 +114,6 @@
     <ClInclude Include="Visual Micro\.RedBuggyFSAE.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial0.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial1.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\HardwareSerial2.cpp" />
@@ -135,6 +140,8 @@
     <ClCompile Include="..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\Wire.cpp" />
     <ClCompile Include="..\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp" />
     <ClCompile Include="..\libraries\Adafruit_MCP4725\Adafruit_MCP4725.cpp" />
+    <ClCompile Include="Adafruit_DotStar.cpp" />
+    <ClCompile Include="Adafruit_MCP4725.cpp" />
     <ClCompile Include="mcp_can.cpp" />
     <ClCompile Include="SPI_anything.cpp" />
   </ItemGroup>
