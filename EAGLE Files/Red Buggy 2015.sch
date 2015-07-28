@@ -1482,6 +1482,8 @@ distributor RS Components</description>
 <segment>
 <wire x1="160.02" y1="60.96" x2="162.56" y2="63.5" width="0.1524" layer="91"/>
 <label x="154.94" y="60.96" size="1.778" layer="95"/>
+<pinref part="JP2" gate="A" pin="3"/>
+<wire x1="160.02" y1="60.96" x2="149.86" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ILOCK" class="0">
