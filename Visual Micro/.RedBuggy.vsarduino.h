@@ -84,6 +84,10 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portInputRegister(P)
 #define portModeRegister(P)
 #include <RedBuggyFSAE.ino>
+#include <Adafruit_DotStar.cpp>
+#include <Adafruit_DotStar.h>
+#include <Adafruit_MCP4725.cpp>
+#include <Adafruit_MCP4725.h>
 #include <SPI_anything.cpp>
 #include <mcp_can.cpp>
 #include <mcp_can.h>
