@@ -349,6 +349,7 @@ UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon-Connectors.lbr"
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon-DigitalIC.lbr"
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon-DiscreteSemi.lbr"
+UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon-PowerIC.lbr"
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/fuse-holders.lbr"
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/SparkFun-Eagle-Libraries-master/LilyPad-Wearables.lbr"
 UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/SparkFun-Eagle-Libraries-master/SparkFun-Aesthetics.lbr"
@@ -390,11 +391,10 @@ UsedLibrary="C:/EAGLE-7.2.0/lbr/elektro/e-steckverbinder.lbr"
 UsedLibrary="C:/EAGLE-7.2.0/lbr/elektro/e-stromversorgungselemente.lbr"
 UsedLibrary="C:/EAGLE-7.2.0/lbr/elektro/e-symbole.lbr"
 UsedLibrary="C:/EAGLE-7.2.0/lbr/elektro/eib-busch-jaeger.lbr"
-UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Wetmelon/Wetmelon-PowerIC.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="-600 0 -1 399"
+Loc="-8 -8 591 391"
 State=1
 Number=0
 
