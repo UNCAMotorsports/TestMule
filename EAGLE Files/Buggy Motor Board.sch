@@ -166,12 +166,6 @@
 <text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
 <pin name="+12V" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 </symbol>
-<symbol name="AGND">
-<wire x1="-1.905" y1="0" x2="1.905" y2="0" width="0.254" layer="94"/>
-<wire x1="-1.0922" y1="-0.508" x2="1.0922" y2="-0.508" width="0.254" layer="94"/>
-<text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
-<pin name="AGND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
-</symbol>
 </symbols>
 <devicesets>
 <deviceset name="GND" prefix="GND">
@@ -217,19 +211,6 @@
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="1" symbol="+12V" x="0" y="0"/>
-</gates>
-<devices>
-<device name="">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="AGND" prefix="AGND">
-<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
-<gates>
-<gate name="VR1" symbol="AGND" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -15684,12 +15665,10 @@ DigiKey P/N: WM9300-ND</description>
 <part name="P+3" library="supply1" deviceset="+5V" device=""/>
 <part name="R17" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES"/>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
-<part name="AGND1" library="supply1" deviceset="AGND" device=""/>
 <part name="X2" library="con-molex" deviceset="5566-24" device=""/>
 <part name="X3" library="con-molex" deviceset="5566-24" device=""/>
 <part name="PWR" library="SparkFun-Connectors" deviceset="M02" device="3.5MM_LOCK"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
-<part name="AGND2" library="supply1" deviceset="AGND" device=""/>
 <part name="KSI" library="SparkFun-Connectors" deviceset="M02" device="5MM"/>
 <part name="P+1" library="supply1" deviceset="+12V" device=""/>
 <part name="MODES" library="SparkFun-Connectors" deviceset="M03" device="SCREW_LOCK"/>
@@ -15705,7 +15684,6 @@ DigiKey P/N: WM9300-ND</description>
 <part name="U$6" library="Wetmelon-DiscreteSemi" deviceset="PS2801C-4" device=""/>
 <part name="U$7" library="Wetmelon-DigitalIC" deviceset="ADUM1251" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
-<part name="P+2" library="supply1" deviceset="+5V" device=""/>
 <part name="R15" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="4.7k"/>
 <part name="R16" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805-RES" value="4.7k"/>
 <part name="SUPPLY6" library="supply2" deviceset="+5V/1" device=""/>
@@ -15726,6 +15704,10 @@ DigiKey P/N: WM9300-ND</description>
 <part name="U$10" library="Teensy_3_Series_Board_v1.0" deviceset="TEENSY_3.1+4" device=""/>
 <part name="U$1" library="Wetmelon-Connectors" deviceset="WM9300" device=""/>
 <part name="+3V5" library="supply1" deviceset="+3V3" device=""/>
+<part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
+<part name="P+2" library="supply1" deviceset="+5V" device=""/>
+<part name="SUPPLY16" library="supply2" deviceset="GND1" device=""/>
+<part name="SUPPLY17" library="supply2" deviceset="GND1" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15764,13 +15746,13 @@ DigiKey P/N: WM9300-ND</description>
 <instance part="IC4" gate="F" x="48.26" y="256.54"/>
 <instance part="IC4" gate="P" x="20.32" y="256.54"/>
 <instance part="X1" gate="G$1" x="109.22" y="218.44"/>
-<instance part="+3V1" gate="G$1" x="119.38" y="269.24"/>
+<instance part="+3V1" gate="G$1" x="86.36" y="165.1"/>
 <instance part="+3V2" gate="G$1" x="86.36" y="210.82"/>
 <instance part="SUPPLY2" gate="GND" x="91.44" y="193.04"/>
 <instance part="SUPPLY3" gate="GND" x="20.32" y="246.38"/>
 <instance part="+3V3" gate="G$1" x="20.32" y="266.7"/>
-<instance part="IC5" gate="G$1" x="109.22" y="254" rot="R270"/>
-<instance part="SUPPLY1" gate="GND" x="91.44" y="254" rot="R270"/>
+<instance part="IC5" gate="G$1" x="76.2" y="149.86" rot="R270"/>
+<instance part="SUPPLY1" gate="GND" x="58.42" y="149.86" rot="R270"/>
 <instance part="C2" gate="G$1" x="78.74" y="259.08"/>
 <instance part="+3V4" gate="G$1" x="78.74" y="264.16"/>
 <instance part="SUPPLY5" gate="GND" x="78.74" y="251.46"/>
@@ -15781,14 +15763,13 @@ DigiKey P/N: WM9300-ND</description>
 <instance part="ACT" gate="G$1" x="58.42" y="205.74" rot="R90"/>
 <instance part="R14" gate="G$1" x="71.12" y="205.74" rot="R180"/>
 <instance part="U$8" gate="G$1" x="96.52" y="60.96" rot="MR0"/>
-<instance part="P+4" gate="1" x="93.98" y="266.7"/>
+<instance part="P+4" gate="1" x="50.8" y="154.94" rot="R90"/>
 <instance part="GND9" gate="1" x="66.04" y="30.48"/>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="G$2" x="325.12" y="0"/>
-<instance part="P+3" gate="1" x="91.44" y="248.92" rot="R90"/>
+<instance part="P+3" gate="1" x="50.8" y="144.78" rot="R90"/>
 <instance part="R17" gate="G$1" x="63.5" y="40.64" rot="R90"/>
 <instance part="+3V9" gate="G$1" x="68.58" y="264.16"/>
-<instance part="AGND1" gate="VR1" x="271.78" y="167.64"/>
 <instance part="X2" gate="-1" x="401.32" y="195.58"/>
 <instance part="X2" gate="-2" x="401.32" y="193.04"/>
 <instance part="X2" gate="-3" x="401.32" y="190.5"/>
@@ -15841,7 +15822,6 @@ DigiKey P/N: WM9300-ND</description>
 <attribute name="NAME" x="12.7" y="104.902" size="1.778" layer="95"/>
 </instance>
 <instance part="GND1" gate="1" x="27.94" y="93.98"/>
-<instance part="AGND2" gate="VR1" x="408.94" y="48.26"/>
 <instance part="KSI" gate="G$1" x="396.24" y="55.88" rot="MR180"/>
 <instance part="P+1" gate="1" x="228.6" y="220.98"/>
 <instance part="MODES" gate="G$1" x="15.24" y="83.82"/>
@@ -15864,7 +15844,6 @@ DigiKey P/N: WM9300-ND</description>
 </instance>
 <instance part="U$7" gate="G$1" x="261.62" y="63.5"/>
 <instance part="GND12" gate="1" x="241.3" y="50.8"/>
-<instance part="P+2" gate="1" x="220.98" y="81.28" rot="R90"/>
 <instance part="R15" gate="G$1" x="228.6" y="73.66" rot="R90"/>
 <instance part="R16" gate="G$1" x="233.68" y="73.66" rot="R90"/>
 <instance part="SUPPLY6" gate="G$1" x="294.64" y="83.82"/>
@@ -15884,7 +15863,11 @@ DigiKey P/N: WM9300-ND</description>
 <instance part="C5" gate="G$1" x="231.14" y="106.68"/>
 <instance part="U$10" gate="G$1" x="154.94" y="142.24"/>
 <instance part="U$1" gate="G$1" x="149.86" y="55.88"/>
-<instance part="+3V5" gate="G$1" x="187.96" y="167.64" rot="R270"/>
+<instance part="+3V5" gate="G$1" x="190.5" y="167.64" rot="R270"/>
+<instance part="+3V6" gate="G$1" x="220.98" y="81.28" rot="R90"/>
+<instance part="P+2" gate="1" x="73.66" y="88.9"/>
+<instance part="SUPPLY16" gate="G$1" x="271.78" y="167.64"/>
+<instance part="SUPPLY17" gate="G$1" x="408.94" y="48.26"/>
 </instances>
 <busses>
 <bus name="CANH,CANL,GND">
@@ -16173,29 +16156,15 @@ DigiKey P/N: WM9300-ND</description>
 </net>
 <net name="+5V" class="0">
 <segment>
-<wire x1="93.98" y1="259.08" x2="93.98" y2="264.16" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="154.94" x2="53.34" y2="154.94" width="0.1524" layer="91"/>
 <pinref part="IC5" gate="G$1" pin="VIN"/>
-<label x="93.98" y="259.08" size="1.778" layer="95" rot="R90"/>
+<label x="53.34" y="154.94" size="1.778" layer="95"/>
 <pinref part="P+4" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="IC5" gate="G$1" pin="EN"/>
 <pinref part="P+3" gate="1" pin="+5V"/>
-</segment>
-<segment>
-<pinref part="U$7" gate="G$1" pin="VDD1"/>
-<wire x1="246.38" y1="66.04" x2="241.3" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="P+2" gate="1" pin="+5V"/>
-<wire x1="223.52" y1="81.28" x2="228.6" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="81.28" x2="233.68" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="233.68" y1="81.28" x2="241.3" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="241.3" y1="81.28" x2="241.3" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="R15" gate="G$1" pin="2"/>
-<wire x1="228.6" y1="78.74" x2="228.6" y2="81.28" width="0.1524" layer="91"/>
-<junction x="228.6" y="81.28"/>
-<pinref part="R16" gate="G$1" pin="2"/>
-<wire x1="233.68" y1="78.74" x2="233.68" y2="81.28" width="0.1524" layer="91"/>
-<junction x="233.68" y="81.28"/>
+<wire x1="53.34" y1="144.78" x2="60.96" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U$9" gate="G$1" pin="VIN"/>
@@ -16205,6 +16174,12 @@ DigiKey P/N: WM9300-ND</description>
 <wire x1="231.14" y1="111.76" x2="223.52" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="231.14" y1="109.22" x2="231.14" y2="111.76" width="0.1524" layer="91"/>
 <junction x="231.14" y="111.76"/>
+</segment>
+<segment>
+<pinref part="P+2" gate="1" pin="+5V"/>
+<pinref part="U$8" gate="G$1" pin="VCC"/>
+<wire x1="73.66" y1="86.36" x2="73.66" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="78.74" x2="81.28" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MISO" class="0">
@@ -16399,7 +16374,7 @@ DigiKey P/N: WM9300-ND</description>
 <pinref part="+3V3" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
-<wire x1="119.38" y1="266.7" x2="119.38" y2="259.08" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="162.56" x2="86.36" y2="154.94" width="0.1524" layer="91"/>
 <pinref part="IC5" gate="G$1" pin="VOUT"/>
 <pinref part="+3V1" gate="G$1" pin="+3V3"/>
 </segment>
@@ -16410,6 +16385,31 @@ DigiKey P/N: WM9300-ND</description>
 <segment>
 <pinref part="C3" gate="G$1" pin="1"/>
 <pinref part="+3V9" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
+<pinref part="U$7" gate="G$1" pin="VDD1"/>
+<wire x1="246.38" y1="66.04" x2="241.3" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="81.28" x2="228.6" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="81.28" x2="233.68" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="233.68" y1="81.28" x2="241.3" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="241.3" y1="81.28" x2="241.3" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="R15" gate="G$1" pin="2"/>
+<wire x1="228.6" y1="78.74" x2="228.6" y2="81.28" width="0.1524" layer="91"/>
+<junction x="228.6" y="81.28"/>
+<pinref part="R16" gate="G$1" pin="2"/>
+<wire x1="233.68" y1="78.74" x2="233.68" y2="81.28" width="0.1524" layer="91"/>
+<junction x="233.68" y="81.28"/>
+<pinref part="+3V6" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
+<pinref part="U$10" gate="G$1" pin="3.3V"/>
+<pinref part="+3V5" gate="G$1" pin="+3V3"/>
+<wire x1="177.8" y1="167.64" x2="182.88" y2="167.64" width="0.1524" layer="91"/>
+<pinref part="U$10" gate="G$1" pin="AREF"/>
+<wire x1="182.88" y1="167.64" x2="187.96" y2="167.64" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="152.4" x2="182.88" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="182.88" y1="152.4" x2="182.88" y2="167.64" width="0.1524" layer="91"/>
+<junction x="182.88" y="167.64"/>
 </segment>
 </net>
 <net name="CD" class="0">
@@ -16453,12 +16453,22 @@ DigiKey P/N: WM9300-ND</description>
 <wire x1="81.28" y1="63.5" x2="66.04" y2="63.5" width="0.1524" layer="91"/>
 <label x="66.04" y="63.5" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$10" gate="G$1" pin="6/PWM"/>
+<wire x1="132.08" y1="154.94" x2="116.84" y2="154.94" width="0.1524" layer="91"/>
+<label x="116.84" y="154.94" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="AMUX1" class="0">
 <segment>
 <pinref part="U$8" gate="G$1" pin="S1"/>
 <wire x1="81.28" y1="60.96" x2="66.04" y2="60.96" width="0.1524" layer="91"/>
 <label x="66.04" y="60.96" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$10" gate="G$1" pin="7/RX3"/>
+<wire x1="132.08" y1="152.4" x2="116.84" y2="152.4" width="0.1524" layer="91"/>
+<label x="116.84" y="152.4" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="AMUX2" class="0">
@@ -16467,12 +16477,22 @@ DigiKey P/N: WM9300-ND</description>
 <wire x1="81.28" y1="58.42" x2="66.04" y2="58.42" width="0.1524" layer="91"/>
 <label x="66.04" y="58.42" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$10" gate="G$1" pin="8/TX3"/>
+<wire x1="132.08" y1="149.86" x2="116.84" y2="149.86" width="0.1524" layer="91"/>
+<label x="116.84" y="149.86" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="AMUX3" class="0">
 <segment>
 <pinref part="U$8" gate="G$1" pin="S3"/>
 <wire x1="81.28" y1="55.88" x2="66.04" y2="55.88" width="0.1524" layer="91"/>
 <label x="66.04" y="55.88" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$10" gate="G$1" pin="9/RX2/PWM"/>
+<wire x1="132.08" y1="147.32" x2="116.84" y2="147.32" width="0.1524" layer="91"/>
+<label x="116.84" y="147.32" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SD_CS" class="0">
@@ -16745,32 +16765,6 @@ DigiKey P/N: WM9300-ND</description>
 <pinref part="U$6" gate="G$4" pin="A"/>
 </segment>
 </net>
-<net name="AGND" class="0">
-<segment>
-<wire x1="269.24" y1="205.74" x2="271.78" y2="205.74" width="0.1524" layer="91"/>
-<wire x1="271.78" y1="205.74" x2="271.78" y2="195.58" width="0.1524" layer="91"/>
-<wire x1="271.78" y1="195.58" x2="271.78" y2="185.42" width="0.1524" layer="91"/>
-<wire x1="271.78" y1="185.42" x2="271.78" y2="175.26" width="0.1524" layer="91"/>
-<wire x1="269.24" y1="195.58" x2="271.78" y2="195.58" width="0.1524" layer="91"/>
-<junction x="271.78" y="195.58"/>
-<wire x1="269.24" y1="185.42" x2="271.78" y2="185.42" width="0.1524" layer="91"/>
-<junction x="271.78" y="185.42"/>
-<wire x1="269.24" y1="175.26" x2="271.78" y2="175.26" width="0.1524" layer="91"/>
-<pinref part="AGND1" gate="VR1" pin="AGND"/>
-<wire x1="271.78" y1="175.26" x2="271.78" y2="170.18" width="0.1524" layer="91"/>
-<junction x="271.78" y="175.26"/>
-<pinref part="U$6" gate="G$1" pin="L2"/>
-<pinref part="U$6" gate="G$2" pin="L2"/>
-<pinref part="U$6" gate="G$3" pin="L2"/>
-<pinref part="U$6" gate="G$4" pin="L2"/>
-</segment>
-<segment>
-<pinref part="KSI" gate="G$1" pin="2"/>
-<pinref part="AGND2" gate="VR1" pin="AGND"/>
-<wire x1="403.86" y1="53.34" x2="408.94" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="408.94" y1="53.34" x2="408.94" y2="50.8" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="DAC0" class="0">
 <segment>
 <pinref part="X3" gate="-15" pin="S"/>
@@ -17009,6 +17003,30 @@ DigiKey P/N: WM9300-ND</description>
 <wire x1="292.1" y1="99.06" x2="292.1" y2="101.6" width="0.1524" layer="91"/>
 <junction x="279.4" y="99.06"/>
 </segment>
+<segment>
+<wire x1="269.24" y1="205.74" x2="271.78" y2="205.74" width="0.1524" layer="91"/>
+<wire x1="271.78" y1="205.74" x2="271.78" y2="195.58" width="0.1524" layer="91"/>
+<wire x1="271.78" y1="195.58" x2="271.78" y2="185.42" width="0.1524" layer="91"/>
+<wire x1="271.78" y1="185.42" x2="271.78" y2="175.26" width="0.1524" layer="91"/>
+<wire x1="269.24" y1="195.58" x2="271.78" y2="195.58" width="0.1524" layer="91"/>
+<junction x="271.78" y="195.58"/>
+<wire x1="269.24" y1="185.42" x2="271.78" y2="185.42" width="0.1524" layer="91"/>
+<junction x="271.78" y="185.42"/>
+<wire x1="269.24" y1="175.26" x2="271.78" y2="175.26" width="0.1524" layer="91"/>
+<wire x1="271.78" y1="175.26" x2="271.78" y2="170.18" width="0.1524" layer="91"/>
+<junction x="271.78" y="175.26"/>
+<pinref part="U$6" gate="G$1" pin="L2"/>
+<pinref part="U$6" gate="G$2" pin="L2"/>
+<pinref part="U$6" gate="G$3" pin="L2"/>
+<pinref part="U$6" gate="G$4" pin="L2"/>
+<pinref part="SUPPLY16" gate="G$1" pin="GND1"/>
+</segment>
+<segment>
+<pinref part="KSI" gate="G$1" pin="2"/>
+<wire x1="403.86" y1="53.34" x2="408.94" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="53.34" x2="408.94" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="SUPPLY17" gate="G$1" pin="GND1"/>
+</segment>
 </net>
 <net name="+3.3V" class="0">
 <segment>
@@ -17039,27 +17057,6 @@ DigiKey P/N: WM9300-ND</description>
 <segment>
 <pinref part="U$10" gate="G$1" pin="2"/>
 <wire x1="132.08" y1="165.1" x2="116.84" y2="165.1" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$3" class="0">
-<segment>
-<pinref part="U$10" gate="G$1" pin="6/PWM"/>
-<wire x1="132.08" y1="154.94" x2="116.84" y2="154.94" width="0.1524" layer="91"/>
-<label x="116.84" y="154.94" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="U$10" gate="G$1" pin="7/RX3"/>
-<wire x1="132.08" y1="152.4" x2="116.84" y2="152.4" width="0.1524" layer="91"/>
-<label x="116.84" y="152.4" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="U$10" gate="G$1" pin="8/TX3"/>
-<wire x1="132.08" y1="149.86" x2="116.84" y2="149.86" width="0.1524" layer="91"/>
-<label x="116.84" y="149.86" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
