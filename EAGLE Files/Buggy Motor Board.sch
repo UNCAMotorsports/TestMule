@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.2.0">
+<eagle version="7.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -16641,6 +16641,7 @@ Standard 7805 5V regulator. IGO (Input Ground Output). Spark Fun Electronics SKU
 <segment>
 <pinref part="MCP-2562" gate="G$1" pin="VIO"/>
 <wire x1="231.14" y1="241.3" x2="241.3" y2="241.3" width="0.1524" layer="91"/>
+<label x="236.22" y="241.3" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CD" class="0">
