@@ -78,3 +78,4 @@ $RECYCLE.BIN/
 .sdf
 *.opensdf
 RedBuggyFSAE.sdf
+*.s#*
