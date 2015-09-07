@@ -396,8 +396,8 @@ UsedLibrary="C:/Users/Paul/Dropbox/Electronics/Eagle Libraries/Teensy/Teensy_3_S
 
 [Win_1]
 Type="Control Panel"
-Loc="-600 0 -1 399"
-State=1
+Loc="-1444 230 -845 629"
+State=2
 Number=0
 
 [Desktop]
