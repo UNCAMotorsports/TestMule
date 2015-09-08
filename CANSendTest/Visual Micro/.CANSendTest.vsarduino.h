@@ -84,6 +84,8 @@ extern "C" void __cxa_pure_virtual() {;}
 #define portInputRegister(P)
 #define portModeRegister(P)
 #include <CANSendTest.ino>
+#include <buggyTest.cpp>
+#include <buggyTest.h>
 #include <mcp_can.cpp>
 #include <mcp_can.h>
 #include <mcp_can_dfs.h>
