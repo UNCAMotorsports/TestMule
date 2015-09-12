@@ -75,7 +75,7 @@ $RECYCLE.BIN/
 *.lnk
 
 #Micro Specific
-.sdf
+*.sdf
 *.opensdf
 RedBuggyFSAE.sdf
 *.s#*
