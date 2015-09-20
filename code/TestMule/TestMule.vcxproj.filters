@@ -18,10 +18,10 @@
     <None Include="TestMule.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Visual Micro\.TestMule.vsarduino.h">
+    <ClInclude Include="DAC_MCP49xx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DAC_MCP49xx.h">
+    <ClInclude Include="__vm\.TestMule.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

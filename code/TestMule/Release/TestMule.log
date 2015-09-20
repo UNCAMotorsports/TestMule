@@ -1,0 +1,31 @@
+﻿Build started 9/18/2015 12:41:13 AM.
+     1>Project "C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\TestMule.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Arduino\hardware\teensy\cores\teensy3" /I"C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule" /I"C:\Program Files (x86)\Arduino\libraries\SPI" /I"C:\Program Files (x86)\Arduino\libraries\SPI\utility" /I"C:\Program Files (x86)\Arduino\libraries" /I"C:\Program Files (x86)\Arduino\hardware\teensy\libraries" /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\w4uo3p4i.cep\Micro Platforms\default\debuggers" /IC:\Users\Paul\Dropbox\Electronics\Arduino\libraries /I"C:\Program Files (x86)\Arduino\hardware\tools\arm\arm\include" /I"C:\Program Files (x86)\Arduino\hardware\tools\arm\arm\include" /I"C:\Program Files (x86)\Arduino\hardware\tools\arm\lib\gcc\arm-none-eabi\4.8.4\include" /I"C:\Program Files (x86)\Arduino\hardware\tools\arm\lib\gcc\arm-none-eabi\4.8.4\include\\" /Zi /nologo /W3 /WX- /sdl /Od /Oi /Oy- /D __ARM_MK20dx256__ /D __ARM_MK20DX256__ /D ARDUINO=106 /D ARDUINO_MAIN /D __AVR__ /D __avr__ /D __cplusplus /D GCC_VERSION=40804 /D ARDUINO_ARCH_AVR /D ARDUINO_AVR_TEENSY31 /D __MK20DX256__ /D TEENSYDUINO=124 /D _MBCS /X /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /FI"C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h" /analyze- /errorReport:prompt DAC_MCP49xx.cpp
+         DAC_MCP49xx.cpp
+     1>c1xx : warning C4117: macro name '__cplusplus' is reserved, '#define' ignored
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(13): warning C4005: '__ARM_MK20dx256__' : macro redefinition
+                 command-line arguments :  see previous definition of '__ARM_MK20dx256__'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(14): warning C4005: '__ARM_MK20DX256__' : macro redefinition
+                 command-line arguments :  see previous definition of '__ARM_MK20DX256__'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(16): warning C4005: 'ARDUINO_MAIN' : macro redefinition
+                 command-line arguments :  see previous definition of 'ARDUINO_MAIN'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(17): warning C4005: '__AVR__' : macro redefinition
+                 command-line arguments :  see previous definition of '__AVR__'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(18): warning C4005: '__avr__' : macro redefinition
+                 command-line arguments :  see previous definition of '__avr__'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(19): warning C4117: macro name '__cplusplus' is reserved, '#define' ignored
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(21): warning C4005: 'ARDUINO_ARCH_AVR' : macro redefinition
+                 command-line arguments :  see previous definition of 'ARDUINO_ARCH_AVR'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(22): warning C4005: 'ARDUINO_AVR_TEENSY31' : macro redefinition
+                 command-line arguments :  see previous definition of 'ARDUINO_AVR_TEENSY31'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(23): warning C4005: '__MK20DX256__' : macro redefinition
+                 command-line arguments :  see previous definition of '__MK20DX256__'
+     1>C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(31): warning C4005: '__asm__' : macro redefinition
+                 C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\__vm\.TestMule.vsarduino.h(26) : see previous definition of '__asm__'
+     1>c:\program files (x86)\arduino\hardware\teensy\cores\teensy3\WProgram.h(4): fatal error C1083: Cannot open include file: 'stdlib.h': No such file or directory
+     1>Done Building Project "C:\Users\Paul\Dropbox\School\FSAE\2015-2016\TestMule\code\TestMule\TestMule.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.95
