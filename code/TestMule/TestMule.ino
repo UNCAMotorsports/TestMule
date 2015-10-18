@@ -1,5 +1,8 @@
 #include <SPI.h>
 #include "DAC_MCP49xx.h"
+#include <Wire.h>
+
+
 
 #define CS_DAC0			10
 #define CS_DAC1			9
@@ -16,7 +19,7 @@
 #define RPM_TIME		5000  // 5ms
 
 // Comment or remove these definitions to stop respective debug code from being compiled
-#define DEBUG_THROTTLE
+//#define DEBUG_THROTTLE
 #define DEBUG_RPM
 
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
@@ -37,7 +40,13 @@ void setup()
 {
 	pinMode(CS_DAC0, OUTPUT);
 	pinMode(CS_DAC1, OUTPUT);
+
+	Wire.beginTransmission(8);
+
 	pinMode(LATCH_PIN, OUTPUT);
+
+	pinMode(LEFT_ENC_PIN, INPUT);
+	pinMode(RIGHT_ENC_PIN, INPUT);
 
 	digitalWrite(CS_DAC0, HIGH);
 	digitalWrite(CS_DAC1, HIGH);
@@ -79,11 +88,10 @@ void loop()
 		rightRPM = (long)((double)(.60*rightRPM) + .40*rightPulses / (thisTime - lastTime));
 
 #ifdef DEBUG_RPM
-
-		Serial.print("leftRPM: ");
-		Serial.print(leftRPM);
-		Serial.print("\trightRPM: ");
-		Serial.println(rightRPM);
+			Serial.print("leftRPM: ");
+			Serial.print(leftRPM);
+			Serial.print("\trightRPM: ");
+			Serial.println(rightRPM);
 
 #endif // DEBUG
 
@@ -102,7 +110,7 @@ void loop()
 
 #ifdef DEBUG_THROTTLE
 		
-		Serial.printf("throttlePos: %.2lf\tSteeringPos: %.2lf\n", throttlePos, steeringPos);
+		//Serial.printf("throttlePos: %.2lf\tSteeringPos: %.2lf\n", throttlePos, steeringPos);
 #endif
 
 		/*
