@@ -5,85 +5,58 @@
 	        all non-arduino files created by visual micro and all visual studio project or solution files can be freely deleted and are not required to compile a sketch (do not delete your own code!).
 	        note: debugger breakpoints are stored in '.sln' or '.asln' files, knowledge of last uploaded breakpoints is stored in the upload.vmps.xml file. Both files are required to continue a previous debug session without needing to compile and upload again
 	
-	Hardware: Teensy 3.1, Platform=avr, Package=teensy
+	Hardware: Teensy 3.2 / 3.1, Platform=teensy3, Package=teensy
 */
 
 #ifndef _VSARDUINO_H_
 #define _VSARDUINO_H_
+#define __HARDWARE_MK20dx256__
+#define __HARDWARE_MK20DX256__
 #define __MK20DX256__
-#define TEENSYDUINO 124
-#define ARDUINO 163
-#define F_CPU 72000000
+#define TEENSYDUINO 127
+#define ARDUINO 10607
+#define F_CPU 96000000
 #define ARDUINO_ARCH_AVR
 #define USB_SERIAL
 #define LAYOUT_US_ENGLISH
-#define __cplusplus
-#define __inline__
-#define __asm__(x)
+#define __cplusplus 201103L
+#define __arm__
+#define __ARM__
 #define __extension__
-//#define __ATTR_PURE__
-//#define __ATTR_CONST__
-#define __inline__
-//#define __asm__ 
-#define __volatile__
-#define GCC_VERSION 40801
-#define volatile(va_arg) 
-#define _CONST
+#define  __attribute__(x)
 typedef void *__builtin_va_list;
-#define __builtin_va_start
-#define __builtin_va_end
-//#define __DOXYGEN__
-#define __attribute__(x)
-#define NOINLINE __attribute__((noinline))
-#define prog_void
-#define PGM_VOID_P int
-#ifndef __builtin_constant_p
-#define __builtin_constant_p __attribute__((__const__))
-#endif
-#ifndef __builtin_strlen
-#define __builtin_strlen  __attribute__((__const__))
-#endif
+#define __extension__
+#define __ATTR_PURE__
+#define __ATTR_CONST__
+#define __inline__
+#define __asm__ 
+#define __volatile__
+
 #define NEW_H
-/*
-#ifndef __ATTR_CONST__
-#define __ATTR_CONST__ __attribute__((__const__))
-#endif
-
-#ifndef __ATTR_MALLOC__
-#define __ATTR_MALLOC__ __attribute__((__malloc__))
-#endif
-
-#ifndef __ATTR_NORETURN__
-#define __ATTR_NORETURN__ __attribute__((__noreturn__))
-#endif
-
-#ifndef __ATTR_PURE__
-#define __ATTR_PURE__ __attribute__((__pure__))
-#endif            
-*/
-typedef unsigned char byte;
-extern "C" void __cxa_pure_virtual() {;}
-
-
 
 #include <arduino.h>
-#undef F
-#define F(string_literal) ((const PROGMEM char *)(string_literal))
-#undef PSTR
-#define PSTR(string_literal) ((const PROGMEM char *)(string_literal))
-#undef cli
-#define cli()
-#define pgm_read_byte(address_short)
-#define pgm_read_word(address_short)
-#define pgm_read_word2(address_short)
-#define digitalPinToPort(P)
-#define digitalPinToBitMask(P) 
-#define digitalPinToTimer(P)
-#define analogInPinToBit(P)
-#define portOutputRegister(P)
-#define portInputRegister(P)
-#define portModeRegister(P)
-#include <TestMule.ino>
-#include <DAC_MCP49xx.cpp>
-#include <DAC_MCP49xx.h>
+#define __arm__
+#define __ARM__
+#define __extension__
+#define  __attribute__(x)
+typedef void *__builtin_va_list;
+#define __extension__
+#define __ATTR_PURE__
+#define __ATTR_CONST__
+#define __inline__
+#define __asm__ 
+#define __volatile__
+
+#define __disable_irq() __asm__ volatile("");
+#define __enable_irq()	__asm__ volatile("");
+
+//#define sei() __enable_irq()
+//#define cli() __disable_irq()
+//#define interrupts() __enable_irq()
+//#define noInterrupts() __disable_irq()
+
+#define NEW_H
+#include <..\TestMule\TestMule.ino>
+#include <..\TestMule\DAC_MCP49xx.cpp>
+#include <..\TestMule\DAC_MCP49xx.h>
 #endif
