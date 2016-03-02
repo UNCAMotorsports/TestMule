@@ -49,9 +49,6 @@ uint32_t omega_left;
 uint32_t omega_right;
 uint32_t omega_vehicle;
 
-uint16_t steeringPot0;
-uint16_t steeringPot1;
-
 uint16_t throttleMin;
 uint16_t throttleMax;
 uint16_t throttleRange;
@@ -103,9 +100,9 @@ void setup()
     analogReadResolution(12);
     analogReadAveraging(8);
 
-    // Sample the throttle pots, set that value as minimum
-    throttleMin = analogRead(THROTTLE1_PIN);
-    throttleRange = 1500;
+    
+    throttleMin = (analogRead(THROTTLE0_PIN) + analogRead(THROTTLE1_PIN)) / 2;      // Sample the throttle pots, set that value as minimum
+    throttleRange = 1500;                                                           // Guesstimate max throttle
     throttleMax = throttleMin + throttleRange;
 
 #ifdef DEBUG_THROTTLE
@@ -128,22 +125,18 @@ void loop()
         thisTime = micros();
 #endif // DEBUG_PROFILING
 
-        cli();
+        cli(); // Disable interrupts to hold our pulse counts while doing this math
         omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
         omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
         omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
 
         leftPulses = 0;
         rightPulses = 0;
-        sei();
+        sei(); // Reenable interrupts
 
-        // Read Throttle && steering pots once every millisecond (+ .1ms / analogRead)
-        lastTime = micros();
-        steeringPot0 = analogRead(STEERING0_PIN);
+        requestedThrottle = getUnsafeThrottle();    // Safe throttle will need a better algorithm to handle noise
 
-        requestedThrottle = getUnsafeThrottle();
-
-        if (requestedThrottle < 75)
+        if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
             requestedThrottle = 0;
 
         switch (DIFFERENTIAL_MODE)
@@ -240,4 +233,13 @@ int16_t getSafeThrottle()
     }
 
     return (throttle0 + throttle1) / 2;     // Return average of the two throttles
+}
+
+uint16_t getSteeringAngle()
+{
+    uint16_t steeringPot0;
+
+    steeringPot0 = analogRead(STEERING0_PIN);
+
+    return steeringPot0;
 }
