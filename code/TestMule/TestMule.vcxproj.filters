@@ -14,22 +14,22 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="_core">
-      <UniqueIdentifier>{28e99f4d-53a6-4742-b109-cfc6f4c76039}</UniqueIdentifier>
+      <UniqueIdentifier>{fae95f1e-8908-4bca-b5d3-0a83b6d92367}</UniqueIdentifier>
     </Filter>
     <Filter Include="_core\avr">
-      <UniqueIdentifier>{e0b04a55-ba48-4af1-a721-8d7ff9bde13a}</UniqueIdentifier>
+      <UniqueIdentifier>{87bd7151-b301-4b27-b60c-94d5c248a291}</UniqueIdentifier>
     </Filter>
     <Filter Include="_core\util">
-      <UniqueIdentifier>{4d1a0ff2-6d74-4e9e-8532-b8c4b6849f69}</UniqueIdentifier>
+      <UniqueIdentifier>{b9cc8091-1fff-4db3-a497-ed22ff17d1de}</UniqueIdentifier>
     </Filter>
     <Filter Include="_libraries">
-      <UniqueIdentifier>{fee170c7-8ea3-4ff3-92ed-46d13cfd4635}</UniqueIdentifier>
+      <UniqueIdentifier>{a0248761-0d58-4cb9-a17b-750b280eebad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_libraries\FlexCAN">
-      <UniqueIdentifier>{f5b88d28-725d-4db3-9684-745b3e46e00f}</UniqueIdentifier>
+    <Filter Include="_libraries\i2c_t3">
+      <UniqueIdentifier>{4e787ca3-4a64-4e05-a73f-fdb230aaecb6}</UniqueIdentifier>
     </Filter>
     <Filter Include="_libraries\SPI">
-      <UniqueIdentifier>{f00d19ce-26e2-4062-98a5-e31b7a789b1f}</UniqueIdentifier>
+      <UniqueIdentifier>{a550d0e5-dba0-468e-8a02-e33919b3aa63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +165,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_mouse.h">
       <Filter>_core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_mtp.h">
+      <Filter>_core</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_names.h">
       <Filter>_core</Filter>
     </ClInclude>
@@ -231,11 +234,8 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\util\parity.h">
       <Filter>_core\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\FlexCAN.h">
-      <Filter>_libraries\FlexCAN</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\kinetis_flexcan.h">
-      <Filter>_libraries\FlexCAN</Filter>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3\i2c_t3.h">
+      <Filter>_libraries\i2c_t3</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.h">
       <Filter>_libraries\SPI</Filter>
@@ -347,6 +347,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_mouse.c">
       <Filter>_core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_mtp.c">
+      <Filter>_core</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\usb_rawhid.c">
       <Filter>_core</Filter>
     </ClCompile>
@@ -365,8 +368,8 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\yield.cpp">
       <Filter>_core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\FlexCAN.cpp">
-      <Filter>_libraries\FlexCAN</Filter>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3\i2c_t3.cpp">
+      <Filter>_libraries\i2c_t3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp">
       <Filter>_libraries\SPI</Filter>
