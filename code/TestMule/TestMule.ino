@@ -14,10 +14,10 @@
 
 #define THROTTLE0_PIN	    A0
 #define THROTTLE1_PIN	    A1
-#define STEERING0_PIN    A2
+#define STEERING0_PIN       A2
 #define STEERING1_PIN       A3
 
-#define ENC_TO_RPM		    150000
+#define ENC_TO_RPM		    75000
 
 #define LEFT_ENC_PIN	    5
 #define RIGHT_ENC_PIN	    6
@@ -32,9 +32,9 @@
 
 
 // Comment or remove these definitions to stop respective debug code from being compiled
-//#define DEBUG_THROTTLE
-//#define DEBUG_RPM
-//#define DEBUG_PROFILING
+#define DEBUG_THROTTLE
+#define DEBUG_RPM
+#define DEBUG_PROFILING
 
 #if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
 #define DEBUG
@@ -131,7 +131,7 @@ void loop()
         cli();
         omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
         omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
-        omega_vehicle = (simple_max(omega_left,omega_right) + simple_min(omega_left,omega_right)) / 2;
+        omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
 
         leftPulses = 0;
         rightPulses = 0;
