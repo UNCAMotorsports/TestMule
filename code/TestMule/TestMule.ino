@@ -1,40 +1,44 @@
-#include <SPI.h>
 #include "DAC_MCP49xx.h"
 #include <i2c_t3.h>
 
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
 #define simple_max(a,b) (((a)>(b)) ? (a) : (b))
 #define simple_min(a,b) (((a)<(b)) ? (a) : (b))
+#define simple_constrain(amt,low,high) (((amt)<(low)) ? (low) : ((amt > high) ? (high) : (amt)))
 
-#define CS_FLASH        2
-#define CS_DAC0		    7
-#define CS_DAC1		    8
-#define LATCH_PIN	    9
-#define CS_SD           10
+#define CS_FLASH            2
+#define CS_DAC0		        7
+#define CS_DAC1		        8
+#define LATCH_PIN	        9
+#define CS_SD               10
 
-#define THROTTLE0_PIN	A0
-#define THROTTLE1_PIN	A1
-#define STEERING0_PIN   A2
-#define STEERING1_PIN   A3
+#define THROTTLE0_PIN	    A0
+#define THROTTLE1_PIN	    A1
+#define STEERING0_PIN    A2
+#define STEERING1_PIN       A3
 
-#define ENC_TO_RPM		150000
+#define ENC_TO_RPM		    150000
 
-#define LEFT_ENC_PIN	5
-#define RIGHT_ENC_PIN	6
+#define LEFT_ENC_PIN	    5
+#define RIGHT_ENC_PIN	    6
 
-#define POLLING_TIME	5000  // 5ms
-#define RPM_TIME		5000  // 5ms
+#define POLLING_TIME	    1000  // 1ms
 
-#define WHEELBASE_IN    72      // In Inches
-#define REAR_TRACK_IN   60      // In inches
+#define WHEELBASE_IN        72      // In Inches
+#define REAR_TRACK_IN       60      // In inches
 
-#define DIFFERENTIAL_MODE 0
+#define DIFFERENTIAL_MODE   0
 
 
 
 // Comment or remove these definitions to stop respective debug code from being compiled
-#define DEBUG_THROTTLE
+//#define DEBUG_THROTTLE
 //#define DEBUG_RPM
+//#define DEBUG_PROFILING
+
+#if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
+#define DEBUG
+#endif
 
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
 DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
@@ -45,9 +49,6 @@ uint32_t omega_left;
 uint32_t omega_right;
 uint32_t omega_vehicle;
 
-uint16_t leftThrottle;
-uint16_t rightThrottle;
-
 uint16_t steeringPot0;
 uint16_t steeringPot1;
 
@@ -55,6 +56,8 @@ uint16_t throttleMin;
 uint16_t throttleMax;
 uint16_t throttleRange;
 uint16_t requestedThrottle;
+uint16_t leftThrottle;
+uint16_t rightThrottle;
 
 uint16_t steeringLeft;
 uint16_t steeringRight;
@@ -62,9 +65,6 @@ uint16_t steeringCenter;
 
 volatile uint32_t leftPulses;
 volatile uint32_t rightPulses;
-
-double leftSteer;
-double rightSteer;
 
 void setup()
 {
@@ -83,14 +83,12 @@ void setup()
     digitalWrite(LATCH_PIN, LOW);   // LOW if you want the DAC values to change immediately.
 
     // Attach functions to interrupts for the encoders
-    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, RISING);
-    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, RISING);
+    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
 
-#if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM)
-
+#ifdef DEBUG
     Serial.begin(115200);
     delay(1000);
-
 #endif // DEBUG
 
     // Set Up DACs
@@ -125,9 +123,14 @@ void loop()
 {
     if ((micros() - lastTime) >= POLLING_TIME)
     {
+
+#ifdef DEBUG_PROFILING
+        thisTime = micros();
+#endif // DEBUG_PROFILING
+
         cli();
-        omega_left = leftPulses*ENC_TO_RPM / (POLLING_TIME);                                         // in RPM
-        omega_right = rightPulses*ENC_TO_RPM / (POLLING_TIME);                                       // in RPM
+        omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
+        omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
         omega_vehicle = (simple_max(omega_left,omega_right) + simple_min(omega_left,omega_right)) / 2;
 
         leftPulses = 0;
@@ -156,6 +159,11 @@ void loop()
         dac1.output(rightThrottle);
 
         lastTime = micros();
+
+#ifdef DEBUG_PROFILING
+        Serial.printf("Loop Time: %d", lastTime - thisTime);
+#endif // DEBUG_PROFILING
+
     }
 }
 
@@ -166,6 +174,7 @@ void pulseLeft(){
 void pulseRight(){
     rightPulses++;
 }
+
 
 // Just get the average of the two throttles
 int16_t getUnsafeThrottle()
@@ -186,11 +195,12 @@ int16_t getUnsafeThrottle()
 #endif
 
     // Constrain throttleMin < throttle < throttleMax
-    throttle0 = ((throttlePot0 < throttleMin) ? throttleMin : ((throttlePot0 > throttleMax) ? throttleMax : throttlePot0));
-    throttle1 = ((throttlePot1 < throttleMin) ? throttleMin : ((throttlePot1 > throttleMax) ? throttleMax : throttlePot1));
+    throttle0 = simple_constrain(throttlePot0, throttleMin, throttleMax);
+    throttle1 = simple_constrain(throttlePot1, throttleMin, throttleMax);
 
     return (throttle0 + throttle1) / 2;
 }
+
 
 // Check for plausibility and agreement, otherwise return -1
 int16_t getSafeThrottle()
