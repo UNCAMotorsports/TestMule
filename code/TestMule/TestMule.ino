@@ -131,7 +131,7 @@ void loop()
         rightPulses = 0;
         sei(); // Reenable interrupts
 
-        requestedThrottle = getUnsafeThrottle();    // Safe throttle will need a better algorithm to handle noise
+        requestedThrottle = getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
 
         if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
             requestedThrottle = 0;
@@ -187,6 +187,21 @@ int16_t getUnsafeThrottle()
     throttle1 = simple_constrain(throttlePot1, throttleMin, throttleMax);
 
     return (throttle0 + throttle1) / 2;
+}
+
+// Get a single throttle value
+int16_t getThrottle(uint8_t throttlePin)
+{
+    uint16_t throttlePot = 0;
+    throttlePot = analogRead(throttlePin);
+
+    if (throttlePot > 3684 || throttlePot < 410){
+        Serial.printf("Warning:  Throttle out of range: %d", throttlePot);
+        return -1;
+    }
+
+    return simple_constrain(throttlePot, throttleMin, throttleMax);
+
 }
 
 
