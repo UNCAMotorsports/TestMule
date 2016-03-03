@@ -1,3 +1,4 @@
+#include <SPI.h>
 #include "DAC_MCP49xx.h"
 #include <i2c_t3.h>
 
@@ -120,11 +121,7 @@ void loop()
 {
     if ((micros() - lastTime) >= POLLING_TIME)
     {
-
-#ifdef DEBUG_PROFILING
-        thisTime = micros();
-#endif // DEBUG_PROFILING
-
+        lastTime = micros();
         cli(); // Disable interrupts to hold our pulse counts while doing this math
         omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
         omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
@@ -151,10 +148,8 @@ void loop()
         dac0.output(leftThrottle);
         dac1.output(rightThrottle);
 
-        lastTime = micros();
-
 #ifdef DEBUG_PROFILING
-        Serial.printf("Loop Time: %d", lastTime - thisTime);
+        Serial.printf("Loop Time: %d", micros() - lastTime);
 #endif // DEBUG_PROFILING
 
     }
