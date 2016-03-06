@@ -240,7 +240,19 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.h">
       <Filter>_libraries\SPI</Filter>
     </ClInclude>
-    <ClInclude Include="MelonCAN.h">
+    <ClInclude Include="UNCA_Vehicle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle_Stats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UNCA_Steering.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kinetis_flexcan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlexCAN.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -377,7 +389,13 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp">
       <Filter>_libraries\SPI</Filter>
     </ClCompile>
-    <ClCompile Include="MelonCAN.cpp">
+    <ClCompile Include="UNCA_Steering.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UNCA_Vehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlexCAN.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

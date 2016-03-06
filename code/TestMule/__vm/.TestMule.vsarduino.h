@@ -63,6 +63,8 @@ typedef void *__builtin_va_list;
 #include <..\TestMule\FlexCAN.h>
 #include <..\TestMule\UNCA_Steering.cpp>
 #include <..\TestMule\UNCA_Steering.h>
+#include <..\TestMule\UNCA_Vehicle.cpp>
+#include <..\TestMule\UNCA_Vehicle.h>
 #include <..\TestMule\Vehicle_Stats.h>
 #include <..\TestMule\kinetis_flexcan.h>
 #endif

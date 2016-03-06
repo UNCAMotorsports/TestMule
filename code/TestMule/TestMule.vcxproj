@@ -146,7 +146,11 @@
     <ClInclude Include="DAC_MCP49xx.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="MelonCAN.h" />
+    <ClInclude Include="FlexCAN.h" />
+    <ClInclude Include="kinetis_flexcan.h" />
+    <ClInclude Include="UNCA_Steering.h" />
+    <ClInclude Include="UNCA_Vehicle.h" />
+    <ClInclude Include="Vehicle_Stats.h" />
     <ClInclude Include="Visual Micro\.TestMule.vsarduino.h" />
     <ClInclude Include="__vm\.TestMule.vsarduino.h" />
   </ItemGroup>
@@ -195,7 +199,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3\i2c_t3.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp" />
     <ClCompile Include="DAC_MCP49xx.cpp" />
-    <ClCompile Include="MelonCAN.cpp" />
+    <ClCompile Include="FlexCAN.cpp" />
+    <ClCompile Include="UNCA_Steering.cpp" />
+    <ClCompile Include="UNCA_Vehicle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
