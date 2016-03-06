@@ -240,6 +240,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.h">
       <Filter>_libraries\SPI</Filter>
     </ClInclude>
+    <ClInclude Include="MelonCAN.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DAC_MCP49xx.cpp">
@@ -373,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp">
       <Filter>_libraries\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="MelonCAN.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

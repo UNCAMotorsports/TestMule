@@ -1,5 +1,7 @@
+#include "UNCA_Steering.h"
 #include <SPI.h>
 #include "DAC_MCP49xx.h"
+#include "FlexCAN.h"
 #include <i2c_t3.h>
 
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
@@ -25,12 +27,7 @@
 
 #define POLLING_TIME	    1000  // 1ms
 
-#define WHEELBASE_IN        72      // In Inches
-#define REAR_TRACK_IN       60      // In inches
-
 #define DIFFERENTIAL_MODE   0
-
-
 
 // Comment or remove these definitions to stop respective debug code from being compiled
 #define DEBUG_THROTTLE
