@@ -73,6 +73,9 @@ void setup()
     pinMode(CS_SD, OUTPUT);
     pinMode(LATCH_PIN, OUTPUT);
 
+    pinMode(LEFT_ENC_PIN, INPUT);
+    pinMode(RIGHT_ENC_PIN, INPUT);
+
     digitalWrite(CS_FLASH, HIGH);
     digitalWrite(CS_DAC0, HIGH);
     digitalWrite(CS_DAC1, HIGH);
