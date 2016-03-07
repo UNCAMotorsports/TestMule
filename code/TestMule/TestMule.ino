@@ -31,8 +31,8 @@
 
 // Comment or remove these definitions to stop respective debug code from being compiled
 #define DEBUG_THROTTLE
-#define DEBUG_RPM
-#define DEBUG_PROFILING
+//#define DEBUG_RPM
+//#define DEBUG_PROFILING
 
 #if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
 #define DEBUG
@@ -102,7 +102,7 @@ void setup()
     analogReadAveraging(8);
 
     
-    throttleMin = (analogRead(THROTTLE0_PIN) + analogRead(THROTTLE1_PIN)) / 2;      // Sample the throttle pots, set that value as minimum
+    throttleMin = getThrottle(THROTTLE0_PIN);      // Sample the throttle pots, set that value as minimum
     throttleRange = 1500;                                                           // Guesstimate max throttle
     throttleMax = throttleMin + throttleRange;
 
@@ -132,10 +132,17 @@ void loop()
         sei(); // Reenable interrupts
 
         requestedThrottle = getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
+        requestedThrottle = simple_constrain(requestedThrottle, throttleMin, throttleMax);
+        requestedThrottle -= throttleMin;
+        requestedThrottle = requestedThrottle / (double)throttleRange * 4095;
+        
 
         if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
             requestedThrottle = 0;
 
+#ifdef DEBUG_THROTTLE
+        Serial.printf("\tRequested: %d\n", requestedThrottle);
+#endif
         switch (DIFFERENTIAL_MODE)
         {
         case 0:
@@ -149,7 +156,7 @@ void loop()
         dac1.output(rightThrottle);
 
 #ifdef DEBUG_PROFILING
-        Serial.printf("Loop Time: %d", micros() - lastTime);
+        Serial.printf("Loop Time: %d\n", micros() - lastTime);
 #endif // DEBUG_PROFILING
 
     }
@@ -195,12 +202,17 @@ int16_t getThrottle(uint8_t throttlePin)
     uint16_t throttlePot = 0;
     throttlePot = analogRead(throttlePin);
 
+#ifdef DEBUG_THROTTLE
+    Serial.printf("Throttle %d: ", throttlePin);
+    Serial.print(throttlePot);
+#endif
+
     if (throttlePot > 3684 || throttlePot < 410){
         Serial.printf("Warning:  Throttle out of range: %d", throttlePot);
         return -1;
     }
 
-    return simple_constrain(throttlePot, throttleMin, throttleMax);
+    return throttlePot;
 
 }
 
