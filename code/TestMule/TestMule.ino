@@ -20,22 +20,22 @@
 #define STEERING0_PIN       A2
 #define STEERING1_PIN       A3
 
-#define ENC_TO_RPM		    75000
+#define ENC_TO_RPM		    75000   // 800 ppr effective, is divided by POLLING TIME (in uS)
 
 #define LEFT_ENC_PIN	    5
 #define RIGHT_ENC_PIN	    6
 
-#define POLLING_TIME	    1000  // 1ms
+#define POLLING_TIME	    5000  // 5ms
 
 #define DIFFERENTIAL_MODE   0
 
 // Comment or remove these definitions to stop respective debug code from being compiled
-#define DEBUG_THROTTLE
+//#define DEBUG_THROTTLE
 //#define DEBUG_RPM
 //#define DEBUG_PROFILING
 
 #if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
-#define DEBUG
+#define DEBUG_CAR
 #endif
 
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
@@ -84,14 +84,14 @@ void setup()
     attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, CHANGE);
     attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
 
-#ifdef DEBUG
+#ifdef DEBUG_CAR
     Serial.begin(115200);
     delay(1000);
 #endif // DEBUG
 
     // Set Up DACs
-    dac0.setSPIDivider(SPI_CLOCK_DIV16);
-    dac1.setSPIDivider(SPI_CLOCK_DIV16);
+    dac0.setSPIDivider(SPI_CLOCK_DIV8);
+    dac1.setSPIDivider(SPI_CLOCK_DIV8);
     dac0.setPortWrite(false);
     dac1.setPortWrite(false);
     dac0.output(0);
@@ -122,20 +122,21 @@ void loop()
     if ((micros() - lastTime) >= POLLING_TIME)
     {
         lastTime = micros();
-        cli(); // Disable interrupts to hold our pulse counts while doing this math
         omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
+
         omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
         omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
 
+#ifdef DEBUG_RPM
+        Serial.printf("Left pulses: %d\tRightPulses: %d\n", leftPulses, rightPulses);
+        Serial.printf("Left RPM: %d\tRight RPM: %d\n", omega_left, omega_right);
+#endif
         leftPulses = 0;
         rightPulses = 0;
-        sei(); // Reenable interrupts
-
         requestedThrottle = getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
         requestedThrottle = simple_constrain(requestedThrottle, throttleMin, throttleMax);
         requestedThrottle -= throttleMin;
         requestedThrottle = requestedThrottle / (double)throttleRange * 4095;
-        
 
         if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
             requestedThrottle = 0;
@@ -150,13 +151,12 @@ void loop()
             rightThrottle = requestedThrottle;
             break;
         }
-
         // Write to the DACs
         dac0.output(leftThrottle);
         dac1.output(rightThrottle);
 
 #ifdef DEBUG_PROFILING
-        Serial.printf("Loop Time: %d\n", micros() - lastTime);
+        Serial.println(micros()-lastTime);
 #endif // DEBUG_PROFILING
 
     }
