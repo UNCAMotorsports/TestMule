@@ -1,6 +1,7 @@
+#include <kinetis_flexcan.h>
 #include <SPI.h>
 #include "DAC_MCP49xx.h"
-#include "FlexCAN.h"
+#include <FlexCAN.h>
 #include <i2c_t3.h>
 
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
