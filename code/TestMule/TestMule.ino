@@ -1,47 +1,21 @@
 /* UNC Asheville Motorsports 2016 test mule code
 */
 
-#include "DAC_MCP49xx.h"
+
+// Standard Headers
+#include "MuleThrottle.h"
 #include <SPI.h>
 #include <FlexCAN.h>
 #include <kinetis_flexcan.h>
 #include <i2c_t3.h>
 
+// Non-standard Headers
+#include "DAC_MCP49xx.h"
+#include "DataLogger.h"
+#include "Vehicle_Stats.h"
 
-// Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
-#define simple_max(a,b) (((a)>(b)) ? (a) : (b))
-#define simple_min(a,b) (((a)<(b)) ? (a) : (b))
-#define simple_constrain(amt,low,high) (((amt)<(low)) ? (low) : ((amt > high) ? (high) : (amt)))
-
-#define CS_FLASH            2
-#define CS_DAC0		        7
-#define CS_DAC1		        8
-#define LATCH_PIN	        9
-#define CS_SD               10
-
-#define THROTTLE0_PIN	    A0
-#define THROTTLE1_PIN	    A1
-#define STEERING0_PIN       A2
-#define STEERING1_PIN       A3
-
-#define ENC_TO_RPM		    75000   // 800 ppr effective, is divided by POLLING TIME (in uS)
-
-#define LEFT_ENC_PIN	    5
-#define RIGHT_ENC_PIN	    6
-
-#define POLLING_TIME	    5000  // 5ms
-
-#define WHEELBASE_IN        72      // In Inches
-#define REAR_TRACK_IN       60      // In inches
-#define MASS_KG             272.2   // In KG
-#define MASS_LBF            600     // In lb
-
-#define DIFFERENTIAL_MODE   0
-
-// Comment or remove these definitions to stop respective debug code from being compiled
-//#define DEBUG_THROTTLE
-//#define DEBUG_RPM
-//#define DEBUG_PROFILING
+// SDFatLib Headers
+#include <SdFat.h>
 
 #if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
 #define DEBUG_CAR
@@ -50,15 +24,16 @@
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
 DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
 
+DataLogger sdLogger(CS_SD, SPI_CLOCK_DIV8);
+MuleThrottle throttle;
+
+
 uint32_t lastTime, thisTime;
 
 uint32_t omega_left;
 uint32_t omega_right;
 uint32_t omega_vehicle;
 
-uint16_t throttleMin;
-uint16_t throttleMax;
-uint16_t throttleRange;
 uint16_t requestedThrottle;
 uint16_t leftThrottle;
 uint16_t rightThrottle;
@@ -69,6 +44,8 @@ uint16_t steeringCenter;
 
 volatile uint32_t leftPulses;
 volatile uint32_t rightPulses;
+
+
 
 void setup()
 {
@@ -108,18 +85,17 @@ void setup()
 
     // Set up ADCs
     analogReadResolution(12);
-    analogReadAveraging(8);
+    analogReadAveraging(4);
 
-    
-    throttleMin = getThrottle(THROTTLE0_PIN);      // Sample the throttle pots, set that value as minimum
-    throttleRange = 1500;                                                           // Guesstimate max throttle
-    throttleMax = throttleMin + throttleRange;
+    throttle.init();
 
 #ifdef DEBUG_THROTTLE
-    Serial.printf("Throttle Min:\t%d\n", throttleMin);
+    Serial.printf("Throttle Min:\t%d\n", throttle.getThrottleMin());
     delay(1000);
-    Serial.printf("Throttle Max:\t%d\n", throttleMax);
+    Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
+
+    sdLogger.begin();
 
     // Take a first time reading
     lastTime = micros();
@@ -143,10 +119,10 @@ void loop()
         rightPulses = 0;
 
 
-        requestedThrottle = getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
-        requestedThrottle = simple_constrain(requestedThrottle, throttleMin, throttleMax);
-        requestedThrottle -= throttleMin;
-        requestedThrottle = requestedThrottle / (double)throttleRange * 4095;
+        requestedThrottle = throttle.getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
+        requestedThrottle = simple_constrain(requestedThrottle, throttle.getThrottleMin(), throttle.getThrottleMax());
+        requestedThrottle -= throttle.getThrottleMin();
+        requestedThrottle = requestedThrottle / (double)throttle.getThrottleRange() * 4095;
 
         if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
             requestedThrottle = 0;
@@ -178,93 +154,6 @@ void pulseLeft(){
 
 void pulseRight(){
     rightPulses++;
-}
-
-
-// Just get the average of the two throttles
-int16_t getUnsafeThrottle()
-{
-    uint16_t throttlePot0;
-    uint16_t throttlePot1;
-    uint16_t throttle0;
-    uint16_t throttle1;
-
-    throttlePot0 = analogRead(THROTTLE0_PIN);
-    throttlePot1 = analogRead(THROTTLE1_PIN);
-
-#ifdef DEBUG_THROTTLE
-    Serial.print("Throttle 0:\t");
-    Serial.print(throttlePot0);
-    Serial.print("\tThrottle 1:\t");
-    Serial.print(throttlePot1);
-#endif
-
-    // Constrain throttleMin < throttle < throttleMax
-    throttle0 = simple_constrain(throttlePot0, throttleMin, throttleMax);
-    throttle1 = simple_constrain(throttlePot1, throttleMin, throttleMax);
-
-    return (throttle0 + throttle1) / 2;
-}
-
-// Get a single throttle value
-int16_t getThrottle(uint8_t throttlePin)
-{
-    uint16_t throttlePot = 0;
-    throttlePot = analogRead(throttlePin);
-
-#ifdef DEBUG_THROTTLE
-    Serial.printf("Throttle %d: ", throttlePin);
-    Serial.print(throttlePot);
-#endif
-
-    if (throttlePot > 3684 || throttlePot < 410){
-        Serial.printf("Warning:  Throttle out of range: %d", throttlePot);
-        return -1;
-    }
-
-    return throttlePot;
-
-}
-
-
-// Check for plausibility and agreement, otherwise return -1
-int16_t getSafeThrottle()
-{
-    uint16_t throttlePot0;
-    uint16_t throttlePot1;
-    uint16_t throttle0;
-    uint16_t throttle1;
-
-    throttlePot0 = analogRead(THROTTLE0_PIN);
-    throttlePot1 = analogRead(THROTTLE1_PIN);
-
-#ifdef DEBUG_THROTTLE
-    Serial.print("Throttle 0:\t");
-    Serial.print(throttlePot0);
-    Serial.print("\tThrottle 1:\t");
-    Serial.print(throttlePot1);
-#endif
-
-    if (throttlePot0 > 3684 || throttlePot0 < 410){
-        Serial.printf("Warning:  Throttle 0 out of range: %d", throttlePot0);
-        return -1;
-    }
-    else if (throttlePot1 > 3684 || throttlePot1 < 410)
-    {
-        Serial.printf("Warning:  Throttle 1 out of range: %d", throttlePot1);
-        return -1;
-    }
-
-    throttle0 = ((throttlePot0 < throttleMin) ? throttleMin : ((throttlePot0 > throttleMax) ? throttleMax : throttlePot0));
-    throttle1 = ((throttlePot1 < throttleMin) ? throttleMin : ((throttlePot1 > throttleMax) ? throttleMax : throttlePot1));
-
-    if ((simple_max(throttle0, throttle1) - simple_min(throttle0, throttle1)) > 410)
-    {
-        Serial.printf("Warning:  Throttle Mismatch!");
-        return -1;
-    }
-
-    return (throttle0 + throttle1) / 2;     // Return average of the two throttles
 }
 
 uint16_t getSteeringAngle()
