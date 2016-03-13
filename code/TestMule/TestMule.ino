@@ -1,4 +1,3 @@
-#include "UNCA_Steering.h"
 #include <SPI.h>
 #include "DAC_MCP49xx.h"
 #include "FlexCAN.h"
@@ -26,6 +25,11 @@
 #define RIGHT_ENC_PIN	    6
 
 #define POLLING_TIME	    5000  // 5ms
+
+#define WHEELBASE_IN        72      // In Inches
+#define REAR_TRACK_IN       60      // In inches
+#define MASS_KG             272.2   // In KG
+#define MASS_LBF            600     // In lb
 
 #define DIFFERENTIAL_MODE   0
 
@@ -123,7 +127,6 @@ void loop()
     {
         lastTime = micros();
         omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
-
         omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
         omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
 
@@ -133,6 +136,8 @@ void loop()
 #endif
         leftPulses = 0;
         rightPulses = 0;
+
+
         requestedThrottle = getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
         requestedThrottle = simple_constrain(requestedThrottle, throttleMin, throttleMax);
         requestedThrottle -= throttleMin;
