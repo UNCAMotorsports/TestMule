@@ -59,6 +59,4 @@ typedef void *__builtin_va_list;
 #include <..\TestMule\TestMule.ino>
 #include <..\TestMule\DAC_MCP49xx.cpp>
 #include <..\TestMule\DAC_MCP49xx.h>
-#include <..\TestMule\Vehicle_Stats.h>
-#include <..\TestMule\kinetis_flexcan.h>
 #endif

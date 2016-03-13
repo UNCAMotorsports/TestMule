@@ -1,8 +1,12 @@
-#include <kinetis_flexcan.h>
-#include <SPI.h>
+/* UNC Asheville Motorsports 2016 test mule code
+*/
+
 #include "DAC_MCP49xx.h"
+#include <SPI.h>
 #include <FlexCAN.h>
+#include <kinetis_flexcan.h>
 #include <i2c_t3.h>
+
 
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
 #define simple_max(a,b) (((a)>(b)) ? (a) : (b))
