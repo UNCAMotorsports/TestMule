@@ -95,7 +95,7 @@ void setup()
     Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
 
-    sdLogger.begin();
+    //sdLogger.begin();
 
     // Take a first time reading
     lastTime = micros();
