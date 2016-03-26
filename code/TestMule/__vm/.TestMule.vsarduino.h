@@ -59,4 +59,9 @@ typedef void *__builtin_va_list;
 #include <..\TestMule\TestMule.ino>
 #include <..\TestMule\DAC_MCP49xx.cpp>
 #include <..\TestMule\DAC_MCP49xx.h>
+#include <..\TestMule\DataLogger.cpp>
+#include <..\TestMule\DataLogger.h>
+#include <..\TestMule\MuleThrottle.cpp>
+#include <..\TestMule\MuleThrottle.h>
+#include <..\TestMule\Vehicle_Stats.h>
 #endif

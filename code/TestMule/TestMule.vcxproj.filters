@@ -28,8 +28,23 @@
     <Filter Include="_libraries\i2c_t3">
       <UniqueIdentifier>{4e787ca3-4a64-4e05-a73f-fdb230aaecb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="_libraries\FlexCAN">
+      <UniqueIdentifier>{386f3919-a400-4b30-b22d-8ebdd8213002}</UniqueIdentifier>
+    </Filter>
     <Filter Include="_libraries\SPI">
-      <UniqueIdentifier>{a550d0e5-dba0-468e-8a02-e33919b3aa63}</UniqueIdentifier>
+      <UniqueIdentifier>{eef93c86-4e35-4661-9855-61c7d6610799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries\SdFat">
+      <UniqueIdentifier>{949c3426-5b3b-46f2-9011-588b27687b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries\SdFat\src">
+      <UniqueIdentifier>{f512f06d-2bee-418c-a6e5-d693b6aa70bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries\SdFat\src\FatLib">
+      <UniqueIdentifier>{e7c0ed82-45db-454d-b439-b8b21dbea3dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries\SdFat\src\SdSpiCard">
+      <UniqueIdentifier>{d0a1c4b1-eb39-41e1-8aac-fb9865b9099e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,9 +54,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DAC_MCP49xx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="__vm\.TestMule.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -237,23 +249,116 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3\i2c_t3.h">
       <Filter>_libraries\i2c_t3</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\FlexCAN.h">
+      <Filter>_libraries\FlexCAN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\kinetis_flexcan.h">
+      <Filter>_libraries\FlexCAN</Filter>
+    </ClInclude>
+    <ClInclude Include="DAC_MCP49xx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.h">
       <Filter>_libraries\SPI</Filter>
+    </ClInclude>
+    <ClInclude Include="DataLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FreeStack.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\MinimumSerial.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdFat.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdFatConfig.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdFatUtil.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SystemInclude.h">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\ArduinoFiles.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\ArduinoStream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\bufstream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatApiConstants.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFile.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFileSystem.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatLib.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatLibConfig.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatStructs.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatVolume.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FmtNumber.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\fstream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\ios.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\iostream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\istream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\ostream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\StdioStream.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\SysCall.h">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\DigitalPin.h">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdInfo.h">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpi.h">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiCard.h">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SoftSPI.h">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle_Stats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="kinetis_flexcan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlexCAN.h">
+    <ClInclude Include="MuleThrottle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DAC_MCP49xx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\analog.c">
       <Filter>_core</Filter>
     </ClCompile>
@@ -380,10 +485,73 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3\i2c_t3.cpp">
       <Filter>_libraries\i2c_t3</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\FlexCAN\FlexCAN.cpp">
+      <Filter>_libraries\FlexCAN</Filter>
+    </ClCompile>
+    <ClCompile Include="DAC_MCP49xx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI\SPI.cpp">
       <Filter>_libraries\SPI</Filter>
     </ClCompile>
-    <ClCompile Include="FlexCAN.cpp">
+    <ClCompile Include="DataLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\MinimumSerial.cpp">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdFat.cpp">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdFatUtil.cpp">
+      <Filter>_libraries\SdFat\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFile.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFileLFN.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFilePrint.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatFileSFN.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FatVolume.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\FmtNumber.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\fstream.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\istream.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\ostream.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\FatLib\StdioStream.cpp">
+      <Filter>_libraries\SdFat\src\FatLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiCard.cpp">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiParticle.cpp">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiSAM3X.cpp">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiSTM32F1.cpp">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Arduino\libraries\SdFat\src\SdSpiCard\SdSpiTeensy3.cpp">
+      <Filter>_libraries\SdFat\src\SdSpiCard</Filter>
+    </ClCompile>
+    <ClCompile Include="MuleThrottle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
