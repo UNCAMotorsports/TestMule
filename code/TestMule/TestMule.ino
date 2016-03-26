@@ -208,7 +208,7 @@ int16_t getThrottle(uint8_t throttlePin)
 #endif
 
     if (throttlePot > 3684 || throttlePot < 410){
-        Serial.printf("Warning:  Throttle out of range: %d", throttlePot);
+        Serial.printf("\nWarning:  Throttle out of range: %d", throttlePot);
         return -1;
     }
 
