@@ -24,7 +24,7 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
-_vs/
+_vm/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -328,5 +328,3 @@ $RECYCLE.BIN/
 *.s#*
 *.b#*
 *.suo
-*.ino.elf
-*.ino.hex
