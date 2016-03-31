@@ -29,17 +29,17 @@ MuleThrottle throttle;
 
 uint32_t lastTime, thisTime;
 
-uint32_t omega_left;
-uint32_t omega_right;
-uint32_t omega_vehicle;
+int32_t omega_left;
+int32_t omega_right;
+int32_t omega_vehicle;
 
-uint16_t requestedThrottle;
-uint16_t leftThrottle;
-uint16_t rightThrottle;
+int16_t requestedThrottle;
+int16_t leftThrottle;
+int16_t rightThrottle;
 
-uint16_t steeringLeft;
-uint16_t steeringRight;
-uint16_t steeringCenter;
+int16_t steeringLeft;
+int16_t steeringRight;
+int16_t steeringCenter;
 
 volatile uint32_t leftPulses;
 volatile uint32_t rightPulses;
@@ -136,8 +136,21 @@ void loop()
             rightThrottle = requestedThrottle;
             break;
         case 1:
-            leftThrottle = requestedThrottle + requestedThrottle*.5*TRACK_TO_WHEEL*getSteeringAngle();
+            double steerAngle = getSteeringAngle();
+            rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
+            leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
+            if (rightThrottle > 4095){
+                double ratio = 4095.0 / rightThrottle;
+                rightThrottle *= ratio;
+                leftThrottle *= ratio;
+            }
+            rightThrottle = simple_constrain(rightThrottle, 0, 4095);
+            leftThrottle = simple_constrain(leftThrottle, 0, 4095);
+            break;
         }
+#ifdef DEBUG_THROTTLE
+        Serial.printf("\tLeft Throttle: %d\tRight Throttle: %d\n",leftThrottle,rightThrottle);
+#endif
         // Write to the DACs
         dac0.output(leftThrottle);
         dac1.output(rightThrottle);
@@ -157,13 +170,13 @@ void pulseRight(){
     rightPulses++;
 }
 
-uint16_t getSteeringAngle()
+double getSteeringAngle()
 {
     uint16_t steeringPot0;
-    uint16_t steerAngle;
+    double steerAngle;
 
     steeringPot0 = analogRead(STEERING0_PIN);
     steerAngle = (steeringPot0 - steeringCenter) * RAD_PER_VAL;
 
-    return steeringPot0;
+    return steerAngle;
 }

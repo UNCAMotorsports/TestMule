@@ -24,9 +24,9 @@ void MuleThrottle::init()
 
 
 // Get a single throttle value
-uint16_t MuleThrottle::getThrottle(uint8_t throttlePin)
+int16_t MuleThrottle::getThrottle(uint8_t throttlePin)
 {
-    uint16_t throttlePot = 0;
+    int16_t throttlePot = 0;
     throttlePot = analogRead(throttlePin);
 
 #ifdef DEBUG_THROTTLE
@@ -44,12 +44,12 @@ uint16_t MuleThrottle::getThrottle(uint8_t throttlePin)
 }
 
 // Just get the average of the two throttles
-uint16_t MuleThrottle::getUnsafeThrottle()
+int16_t MuleThrottle::getUnsafeThrottle()
 {
     uint16_t throttlePot0;
     uint16_t throttlePot1;
-    uint16_t throttle0;
-    uint16_t throttle1;
+    int16_t throttle0;
+    int16_t throttle1;
 
     throttlePot0 = analogRead(THROTTLE0_PIN);
     throttlePot1 = analogRead(THROTTLE1_PIN);
@@ -68,12 +68,12 @@ uint16_t MuleThrottle::getUnsafeThrottle()
     return (throttle0 + throttle1) / 2;
 }
 
-uint16_t MuleThrottle::getSafeThrottle()
+int16_t MuleThrottle::getSafeThrottle()
 {
-    uint16_t throttlePot0;
-    uint16_t throttlePot1;
-    uint16_t throttle0;
-    uint16_t throttle1;
+    int16_t throttlePot0;
+    int16_t throttlePot1;
+    int16_t throttle0;
+    int16_t throttle1;
 
     throttlePot0 = analogRead(THROTTLE0_PIN);
     throttlePot1 = analogRead(THROTTLE1_PIN);

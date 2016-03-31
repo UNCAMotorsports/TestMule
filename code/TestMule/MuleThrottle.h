@@ -17,9 +17,9 @@ public:
 
     void init();
 
-    uint16_t getSafeThrottle();
-    uint16_t getUnsafeThrottle();
-    uint16_t getThrottle(uint8_t);
+    int16_t getSafeThrottle();
+    int16_t getUnsafeThrottle();
+    int16_t getThrottle(uint8_t);
 
     void setThrottleMin(uint16_t);
     void setThrottleMax(uint16_t);
