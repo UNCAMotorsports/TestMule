@@ -7,6 +7,7 @@
 // Comment or remove these definitions to stop respective debug code from being compiled
 //#define DEBUG_THROTTLE
 //#define DEBUG_RPM
+//#define DEBUG_STEERING
 //#define DEBUG_PROFILING
 
 
@@ -16,8 +17,8 @@
 #define simple_constrain(amt,low,high) (((amt)<(low)) ? (low) : ((amt > high) ? (high) : (amt)))
 
 #define CS_FLASH            2
-#define CS_DAC0		        7
-#define CS_DAC1		        8
+#define CS_DAC0		        8
+#define CS_DAC1		        7
 #define LATCH_PIN	        9
 #define CS_SD               10
 
@@ -33,12 +34,12 @@
 
 #define POLLING_TIME	    5000  // 5ms
 
-#define WHEELBASE_IN        72      // In Inches
-#define REAR_TRACK_IN       60      // In inches
+#define WHEELBASE_IN        72.0      // In Inches
+#define REAR_TRACK_IN       60.0      // In inches
 #define TRACK_TO_WHEEL      (REAR_TRACK_IN/WHEELBASE_IN)
 #define MASS_KG             272.2   // In KG
 #define MASS_LBF            600     // In lb
 
-#define RAD_PER_VAL         .1
+#define RAD_PER_VAL         .05
 
-#define DIFFERENTIAL_MODE   0
+#define DIFFERENTIAL_MODE   1

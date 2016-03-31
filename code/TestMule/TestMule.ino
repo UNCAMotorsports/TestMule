@@ -24,7 +24,7 @@
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
 DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
 
-DataLogger sdLogger(CS_SD, SPI_CLOCK_DIV8);
+DataLogger sdLogger(CS_SD, SPI_FULL_SPEED);
 MuleThrottle throttle;
 
 uint32_t lastTime, thisTime;
@@ -94,8 +94,11 @@ void setup()
     Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
 
-    //sdLogger.begin();
-
+    sdLogger.begin("TestFile.csv");
+    
+    steeringLeft = 3925;
+    steeringRight = 2100;
+    steeringCenter = 3225;
     // Take a first time reading
     lastTime = micros();
 }
@@ -139,6 +142,9 @@ void loop()
             double steerAngle = getSteeringAngle();
             rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
             leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
+#ifdef DEBUG_THROTTLE
+            Serial.printf("Delta: %f\n", requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle);
+#endif
             if (rightThrottle > 4095){
                 double ratio = 4095.0 / rightThrottle;
                 rightThrottle *= ratio;
@@ -149,7 +155,7 @@ void loop()
             break;
         }
 #ifdef DEBUG_THROTTLE
-        Serial.printf("\tLeft Throttle: %d\tRight Throttle: %d\n",leftThrottle,rightThrottle);
+        Serial.printf("Left Throttle: %d\tRight Throttle: %d\n",leftThrottle,rightThrottle);
 #endif
         // Write to the DACs
         dac0.output(leftThrottle);
@@ -159,6 +165,7 @@ void loop()
         Serial.println(micros()-lastTime);
 #endif // DEBUG_PROFILING
 
+        sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle(), omega_right);
     }
 }
 
@@ -178,5 +185,10 @@ double getSteeringAngle()
     steeringPot0 = analogRead(STEERING0_PIN);
     steerAngle = (steeringPot0 - steeringCenter) * RAD_PER_VAL;
 
-    return steerAngle;
+#ifdef DEBUG_STEERING
+
+    Serial.printf("Raw Steering: %d\tSteer Angle: %f\n", steeringPot0, steerAngle);
+#endif
+
+    return tan(steerAngle*PI/180);
 }
