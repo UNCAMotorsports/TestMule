@@ -27,7 +27,6 @@ DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
 DataLogger sdLogger(CS_SD, SPI_CLOCK_DIV8);
 MuleThrottle throttle;
 
-
 uint32_t lastTime, thisTime;
 
 uint32_t omega_left;
@@ -136,6 +135,8 @@ void loop()
             leftThrottle = requestedThrottle;
             rightThrottle = requestedThrottle;
             break;
+        case 1:
+            leftThrottle = requestedThrottle + requestedThrottle*.5*TRACK_TO_WHEEL*getSteeringAngle();
         }
         // Write to the DACs
         dac0.output(leftThrottle);
@@ -159,8 +160,10 @@ void pulseRight(){
 uint16_t getSteeringAngle()
 {
     uint16_t steeringPot0;
+    uint16_t steerAngle;
 
     steeringPot0 = analogRead(STEERING0_PIN);
+    steerAngle = (steeringPot0 - steeringCenter) * RAD_PER_VAL;
 
     return steeringPot0;
 }

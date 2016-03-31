@@ -35,7 +35,10 @@
 
 #define WHEELBASE_IN        72      // In Inches
 #define REAR_TRACK_IN       60      // In inches
+#define TRACK_TO_WHEEL      (REAR_TRACK_IN/WHEELBASE_IN)
 #define MASS_KG             272.2   // In KG
 #define MASS_LBF            600     // In lb
+
+#define RAD_PER_VAL         .1
 
 #define DIFFERENTIAL_MODE   0
