@@ -5,9 +5,9 @@
 
 
 // Comment or remove these definitions to stop respective debug code from being compiled
-//#define DEBUG_THROTTLE
+#define DEBUG_THROTTLE
 //#define DEBUG_RPM
-//#define DEBUG_STEERING
+#define DEBUG_STEERING
 //#define DEBUG_PROFILING
 
 

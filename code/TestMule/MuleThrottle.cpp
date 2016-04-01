@@ -17,7 +17,7 @@ MuleThrottle::~MuleThrottle()
 void MuleThrottle::init()
 {
     throttleMin = getThrottle(THROTTLE0_PIN);      // Sample the throttle pots, set that value as minimum
-    throttleRange = 1400;                                   // Guesstimate max throttle
+    throttleRange = 1450;                                   // Guesstimate max throttle
     throttleMax = throttleMin + throttleRange;
 }
 

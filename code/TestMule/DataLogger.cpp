@@ -51,13 +51,11 @@ void DataLogger::addEntry(uint32_t time, int16_t left, int16_t right, int16_t st
 
 void DataLogger::logData()
 {
-    uint32_t lastTime = micros();
     for (int i = 0; i < 10; i++)
     {
         file.printf("%d,%d,%d,%d,%d\n", arrEntries[i].time, arrEntries[i].left, arrEntries[i].right, arrEntries[i].steer, arrEntries[i].speed);
     }
     numEntries = 0;
-    Serial.println(micros() - lastTime);
 }
 
 void DataLogger::writeHeader() {

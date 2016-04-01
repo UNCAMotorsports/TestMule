@@ -94,11 +94,10 @@ void setup()
     Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
 
-    sdLogger.begin("TestFile.csv");
+    //sdLogger.begin("TestFile.csv");
     
-    steeringLeft = 3925;
-    steeringRight = 2100;
-    steeringCenter = 3225;
+
+    steeringCenter = 3443;
     // Take a first time reading
     lastTime = micros();
 }
@@ -165,7 +164,7 @@ void loop()
         Serial.println(micros()-lastTime);
 #endif // DEBUG_PROFILING
 
-        sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle(), omega_right);
+        //sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle(), omega_right);
     }
 }
 
@@ -177,6 +176,8 @@ void pulseRight(){
     rightPulses++;
 }
 
+
+// Return the tangent of the steering angle, in degrees.
 double getSteeringAngle()
 {
     uint16_t steeringPot0;
