@@ -94,10 +94,10 @@ void setup()
     Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
 
-    //sdLogger.begin("TestFile.csv");
+    sdLogger.begin("TestFile.csv");
     
 
-    steeringCenter = 3443;
+    steeringCenter = 2535;
     // Take a first time reading
     lastTime = micros();
 }
@@ -105,11 +105,12 @@ void setup()
 
 void loop()
 {
-    if ((micros() - lastTime) >= POLLING_TIME)
+    uint32_t timer = micros() - lastTime;
+    if (timer >= POLLING_TIME)
     {
         lastTime = micros();
-        omega_left = leftPulses*ENC_TO_RPM / POLLING_TIME;
-        omega_right = rightPulses*ENC_TO_RPM / POLLING_TIME;
+        omega_left = leftPulses*ENC_TO_RPM / timer;
+        omega_right = rightPulses*ENC_TO_RPM / timer;
         omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
 
 #ifdef DEBUG_RPM
@@ -163,8 +164,7 @@ void loop()
 #ifdef DEBUG_PROFILING
         Serial.println(micros()-lastTime);
 #endif // DEBUG_PROFILING
-
-        //sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle(), omega_right);
+        sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle()*100, omega_right);
     }
 }
 
