@@ -24,17 +24,29 @@ void DataLogger::init()
 
 void DataLogger::begin(const char* fileName)
 {
+    // Make sure the SD Card exists
     if (!sd.begin(chipSelect, spiSpeed)) {
         sd.initErrorHalt();
     }
+
+    int number = 0;
+    char sName[40];
+    
+    // Find a filename that hasn't been used already
+    do{
+        sprintf(sName, "%s%d.csv", fileName, number++);
+    } while (file.exists(sName));
+
     if (!file.open(fileName, O_CREAT | O_WRITE)) {
         error("file.open");
     }
+    // Write the first line of the csv file
     writeHeader();
 }
 
-void DataLogger::addEntry(uint32_t time, int16_t left, int16_t right, int16_t steering, uint16_t speed){
+void DataLogger::addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, double steering, uint16_t speed){
     this->arrEntries[numEntries].time = time;
+    this->arrEntries[numEntries].throttle = throttle;
     this->arrEntries[numEntries].left = left;
     this->arrEntries[numEntries].right = right;
     this->arrEntries[numEntries].steer = steering;
@@ -43,21 +55,23 @@ void DataLogger::addEntry(uint32_t time, int16_t left, int16_t right, int16_t st
     if (numEntries >= 10){
         logData();
         if (!file.sync() || file.getWriteError()) {
-            error("write error");
+            error(F("write error"));
         }
     }
 
 }
 
+// Write the buffered data to the card
 void DataLogger::logData()
 {
     for (int i = 0; i < 10; i++)
     {
-        file.printf("%d,%d,%d,%d,%d\n", arrEntries[i].time, arrEntries[i].left, arrEntries[i].right, arrEntries[i].steer, arrEntries[i].speed);
+        file.printf("%d,%d,%d,%d,%0.2f,%d\n", arrEntries[i].time, arrEntries[i].throttle, arrEntries[i].left, arrEntries[i].right, arrEntries[i].steer, arrEntries[i].speed);
     }
     numEntries = 0;
 }
 
+// Write the first line of the 
 void DataLogger::writeHeader() {
     file.printf(F("Millis,Left,Right,Steering Angle,Wheel Speed\n"));
     if (!file.sync() || file.getWriteError()) {

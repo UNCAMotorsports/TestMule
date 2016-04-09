@@ -11,9 +11,10 @@
 
 struct entry{
     uint32_t time;
+    uint16_t throttle;
     int16_t left;
     int16_t right;
-    int16_t steer;
+    double steer;
     uint16_t speed;
 };
 
@@ -33,7 +34,7 @@ class DataLogger
      void init();
      void begin(const char* fileName);
      void logData();
-     void addEntry(uint32_t time, int16_t left, int16_t right, int16_t steering, uint16_t speed);
+     void addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, double steering, uint16_t speed);
      void writeHeader();
 };
 
