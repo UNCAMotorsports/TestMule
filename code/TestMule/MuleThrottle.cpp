@@ -3,7 +3,14 @@
 // 
 
 #include "MuleThrottle.h"
-#include "Vehicle_Stats.h"
+
+// Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
+#define simple_max(a,b) (((a)>(b)) ? (a) : (b))
+#define simple_min(a,b) (((a)<(b)) ? (a) : (b))
+#define simple_constrain(amt,low,high) (((amt)<(low)) ? (low) : ((amt > high) ? (high) : (amt)))
+
+#define THROTTLE0_PIN	    (A0)
+#define THROTTLE1_PIN	    (A1)
 
 
 MuleThrottle::MuleThrottle()

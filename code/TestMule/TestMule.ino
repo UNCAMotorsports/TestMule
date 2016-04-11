@@ -124,13 +124,11 @@ void setup()
     digitalWriteFast(LATCH_PIN, LOW);   // LOW if you want the DAC values to change immediately.
 
     // Attach functions to interrupts for the encoders
-    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, RISING);
+    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, RISING);
 
-#ifdef DEBUG_CAR
     Serial.begin(115200);
     delay(1000);
-#endif // DEBUG
 
     // Set Up DACs
     dac0.setSPIDivider(SPI_CLOCK_DIV8);
@@ -157,6 +155,8 @@ void setup()
     sdLogger.begin("TestFile");
 
     loopTimer.begin(multiRateISR, TIMER_RATE);        // Start the main loop timer
+    lastLeftTime = micros();
+    lastRightTime = micros();
     lastTime = micros();
 }
 
@@ -165,6 +165,7 @@ void setup()
 *  ---------------------------------------------------------------------------- */
 void loop()
 {
+
     if (rpm_flag) {
         rpm_flag = false;
         rpmTask();
@@ -175,6 +176,7 @@ void loop()
     }
     else if (throttle_flag) {
         throttle_flag = false;
+        throttleTask();
     }
     else if (logging_flag) {
         // Add an entry to the logging buffer
@@ -187,18 +189,16 @@ void loop()
 *       Check for RPM timeout (where the wheel has stopped)
 *  ---------------------------------------------------------------------------- */
 void rpmTask(){
-    noInterrupts();
     if (leftTimeDiff > RPM_RATE)
         rpm_left = 0;
     if (rightTimeDiff > RPM_RATE)
         rpm_right = 0;
-    interrupts();
 
     omega_vehicle = (simple_max(rpm_left, rpm_right) + simple_min(rpm_left, rpm_right)) / 2.0;
 
 #ifdef DEBUG_RPM
-    Serial.printf("Left pulses: %d\tRightPulses: %d\n", leftPulses, rightPulses);
-    Serial.printf("Left RPM: %d\tRight RPM: %d\n", rpm_left, rpm_right);
+    //Serial.printf("Left pulses: %d\tRightPulses: %d\n", left, rightPulses);
+    Serial.printf("Left RPM: %0.2f\tRight RPM: %0.2f\n", rpm_left, rpm_right);
 #endif
 }
 /* ---------------------------------------------------------------------------- */

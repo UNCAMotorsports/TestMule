@@ -255,9 +255,6 @@
     <ClInclude Include="DataLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vehicle_Stats.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MuleThrottle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
