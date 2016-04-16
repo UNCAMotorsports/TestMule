@@ -30,16 +30,13 @@ void DataLogger::begin(const char* fileName)
     }
 
     int number = 0;
-    char sName[40];
+    char sName[80];
     
     // Find a filename that hasn't been used already
     do{
         sprintf(sName, "%s%d.csv", fileName, number++);
-    } while (file.exists(sName));
-
-    if (!file.open(fileName, O_CREAT | O_WRITE)) {
-        error("file.open");
-    }
+        Serial.println(sName);
+    } while (!file.open(sName, O_CREAT | O_WRITE | O_EXCL));
     // Write the first line of the csv file
     writeHeader();
 }
@@ -73,7 +70,7 @@ void DataLogger::logData()
 
 // Write the first line of the 
 void DataLogger::writeHeader() {
-    file.printf(F("Millis,Left,Right,Steering Angle,Wheel Speed\n"));
+    file.printf(F("Millis,throttle,Left,Right,Steering Angle,Wheel Speed\n"));
     if (!file.sync() || file.getWriteError()) {
         error("write error");
     }

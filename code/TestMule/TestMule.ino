@@ -10,44 +10,14 @@
 #include "DAC_MCP49xx.h"
 #include "DataLogger.h"
 #include "MuleThrottle.h"
+#include "MuleDefines.h"
 
-
-// Section:  Defines
 
 // Comment or remove these definitions to stop respective debug code from being compiled
 //#define DEBUG_THROTTLE
-//#define DEBUG_RPM
+#define DEBUG_RPM
 //#define DEBUG_STEERING
 //#define DEBUG_PROFILING
-
-
-// Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
-#define simple_max(a,b) (((a)>(b)) ? (a) : (b))
-#define simple_min(a,b) (((a)<(b)) ? (a) : (b))
-#define simple_constrain(amt,low,high) (((amt)<(low)) ? (low) : ((amt > high) ? (high) : (amt)))
-
-#define CS_FLASH            (2)
-#define CS_DAC0		        (8)
-#define CS_DAC1		        (7)
-#define LATCH_PIN	        (9)
-#define CS_SD               (10)
-
-#define THROTTLE0_PIN	    (A0)
-#define THROTTLE1_PIN	    (A1)
-#define STEERING0_PIN       (A2)
-#define STEERING1_PIN       (A3)
-
-#define ENC_TO_RPM		    (150000)    // 400 ppr effective
-#define LEFT_ENC_PIN	    (5)
-#define RIGHT_ENC_PIN	    (6)
-#define WHEELBASE_IN        (72.0)      // In Inches
-#define REAR_TRACK_IN       (60.0)      // In inches
-#define TRACK_TO_WHEEL      (REAR_TRACK_IN/WHEELBASE_IN)
-
-#define RAD_PER_VAL         (.05)
-
-#define DIFFERENTIAL_MODE   (1)
-#define STEERING_CENTER     (2535)
 
 
 /* ---------------------------------------------------------------------------- +
@@ -56,7 +26,7 @@
  *
  * ---------------------------------------------------------------------------- */
 #define TIMER_RATE          (1000)                          // Check the timer every 1 millisecond
-#define RPM_RATE            (150000 / TIMER_RATE)           // How often to check if we've stopped getting RPM readings
+#define RPM_RATE            (5000 / TIMER_RATE)           // How often to check if we've stopped getting RPM readings
 #define THROTTLE_RATE       (5000 / TIMER_RATE)             // Read throttle at 200Hz
 #define STEERING_RATE       (5000 / TIMER_RATE)             // Read steering at 200Hz
 #define LOGGING_RATE        (5000 / TIMER_RATE)             // Create data entries at 200Hz (10-entry FIFO)
@@ -93,12 +63,12 @@ int16_t requestedThrottle = 0;
 uint32_t lastTime;
 
 // Set up variables for tracking RPM
-volatile uint32_t lastLeftTime;
-volatile uint32_t lastRightTime;
-volatile uint32_t leftTimeDiff = 1;     // To avoid divide-by-zero
-volatile uint32_t rightTimeDiff = 1;    // To avoid divide-by-zero
-volatile double rpm_left;
-volatile double rpm_right;
+uint32_t lastLeftTime;
+uint32_t lastRightTime;
+volatile uint32_t numLeftPulses = 0;
+volatile uint32_t numRightPulses = 0;
+uint32_t leftRPM = 0;
+uint32_t rightRPM = 0;
 double omega_vehicle;
 
 double steerAngle;
@@ -180,7 +150,8 @@ void loop()
     }
     else if (logging_flag) {
         // Add an entry to the logging buffer
-        sdLogger.addEntry(millis(), requestedThrottle, leftThrottle, rightThrottle, steerAngle, rpm_right);
+        logging_flag = false;
+        sdLogger.addEntry(micros(), requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
     }
 }
 /* ---------------------------------------------------------------------------- */
@@ -189,16 +160,17 @@ void loop()
 *       Check for RPM timeout (where the wheel has stopped)
 *  ---------------------------------------------------------------------------- */
 void rpmTask(){
-    if (leftTimeDiff > RPM_RATE)
-        rpm_left = 0;
-    if (rightTimeDiff > RPM_RATE)
-        rpm_right = 0;
 
-    omega_vehicle = (simple_max(rpm_left, rpm_right) + simple_min(rpm_left, rpm_right)) / 2.0;
+    leftRPM = numLeftPulses * 150000 / (micros() - lastLeftTime);
+    rightRPM = numRightPulses * 150000 / (micros() - lastRightTime);
+    numLeftPulses = 0;
+    numRightPulses = 0;
+    lastLeftTime = micros();
+    lastRightTime = micros();
 
+    omega_vehicle = (simple_max(leftRPM, rightRPM) + simple_min(leftRPM, rightRPM)) / 2.0;
 #ifdef DEBUG_RPM
-    //Serial.printf("Left pulses: %d\tRightPulses: %d\n", left, rightPulses);
-    Serial.printf("Left RPM: %0.2f\tRight RPM: %0.2f\n", rpm_left, rpm_right);
+    Serial.printf("Right RPM: %d\n", rightRPM);
 #endif
 }
 /* ---------------------------------------------------------------------------- */
@@ -216,7 +188,7 @@ void steeringTask(){
 
 #ifdef DEBUG_STEERING
 
-    Serial.printf("Raw Steering: %d\tSteer Angle: %f\n", steeringPot0, steerAngle);
+    Serial.printf("Raw Steering: %d\tSteer Angle: %0.2f\n", steeringPot0, steerAngle);
 #endif
 
     steerAngle = tan(radians(steerAngle));
@@ -286,14 +258,10 @@ void throttleTask(){
 
 // Called when we get a wheel encoder pulse from the left
 void pulseLeft(){
-    leftTimeDiff = micros() - lastLeftTime;
-    rpm_left = 150000 / leftTimeDiff;
-    lastLeftTime = micros();
+    numLeftPulses++;
 }
 
 // Called when we get a wheel encoder pulse from the right
 void pulseRight(){
-    rightTimeDiff = micros() - lastRightTime;
-    rpm_right = 150000 / rightTimeDiff;
-    lastRightTime = micros();
+    numRightPulses++;
 }
