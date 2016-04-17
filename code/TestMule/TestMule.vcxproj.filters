@@ -342,6 +342,9 @@
     <ClInclude Include="..\..\..\..\Arduino\libraries\SdFat\utility\StdioStream.h">
       <Filter>_libraries\SdFat\utility</Filter>
     </ClInclude>
+    <ClInclude Include="MuleDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\analog.c">

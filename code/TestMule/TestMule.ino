@@ -15,7 +15,7 @@
 
 // Comment or remove these definitions to stop respective debug code from being compiled
 //#define DEBUG_THROTTLE
-#define DEBUG_RPM
+//#define DEBUG_RPM
 //#define DEBUG_STEERING
 //#define DEBUG_PROFILING
 
@@ -94,8 +94,8 @@ void setup()
     digitalWriteFast(LATCH_PIN, LOW);   // LOW if you want the DAC values to change immediately.
 
     // Attach functions to interrupts for the encoders
-    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, RISING);
-    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, RISING);
+    attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
 
     Serial.begin(115200);
     delay(1000);
@@ -161,8 +161,8 @@ void loop()
 *  ---------------------------------------------------------------------------- */
 void rpmTask(){
 
-    leftRPM = numLeftPulses * 150000 / (micros() - lastLeftTime);
-    rightRPM = numRightPulses * 150000 / (micros() - lastRightTime);
+    leftRPM = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
+    rightRPM = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
     numLeftPulses = 0;
     numRightPulses = 0;
     lastLeftTime = micros();

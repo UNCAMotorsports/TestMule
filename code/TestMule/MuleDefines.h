@@ -16,7 +16,7 @@
 #define STEERING0_PIN       (A2)
 #define STEERING1_PIN       (A3)
 
-#define ENC_TO_RPM		    (150000)    // 400 ppr effective
+#define ENC_TO_RPM		    (75000)    // 400 ppr effective
 #define LEFT_ENC_PIN	    (5)
 #define RIGHT_ENC_PIN	    (6)
 #define WHEELBASE_IN        (72.0)      // In Inches
