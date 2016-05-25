@@ -42,12 +42,13 @@ DataLogger::DataLogger()
 }
 
 void DataLogger::addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, float steering, uint16_t speed){
-    buffer->time = time;
-    buffer->throttle = throttle;
-    buffer->left = left;
-    buffer->right = right;
-    buffer->steer = steering;
-    buffer->speed = speed;
+    block.data[blockNum].dataVersion = 1;
+    block.data[blockNum].time = time;
+    block.data[blockNum].throttle = throttle;
+    block.data[blockNum].left = left;
+    block.data[blockNum].right = right;
+    block.data[blockNum].steer = steering;
+    block.data[blockNum].speed = speed;
 }
 
 // Write the buffered data to the card
