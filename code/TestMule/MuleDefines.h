@@ -1,5 +1,12 @@
 // Section:  Defines
 
+// Comment or remove these definitions to stop respective debug code from being compiled
+//#define DEBUG_THROTTLE
+//#define DEBUG_RPM
+//#define DEBUG_STEERING
+//#define DEBUG_PROFILING
+//#define LOGGER_DEBUG
+
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
 #define simple_max(a,b) (((a)>(b)) ? (a) : (b))
 #define simple_min(a,b) (((a)<(b)) ? (a) : (b))
@@ -27,3 +34,4 @@
 
 #define DIFFERENTIAL_MODE   (1)
 #define STEERING_CENTER     (2535)
+
