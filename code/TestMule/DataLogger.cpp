@@ -69,7 +69,7 @@ void DataLogger::fastLog(){
 
 // Write the first line of the 
 void DataLogger::writeHeader() {
-    file.printf(F("Millis,throttle,Left,Right,Steering Angle,Wheel Speed\n"));
+    file.printf(F("Version,millis,throttle,Left,Right,Steering Angle,Wheel Speed\n"));
     if (!file.sync() || file.getWriteError()) {
         error("write error");
     }
