@@ -7,8 +7,6 @@
 #include "DataLogger.h"
 #include "MuleThrottle.h"
 
-#define LOGGER_DEBUG
-
 
 /* ---------------------------------------------------------------------------- +
  *
