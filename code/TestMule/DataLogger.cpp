@@ -78,7 +78,7 @@ void DataLogger::startBinLogger(){
 
 #ifdef LOGGER_DEBUG
     Serial.print("Size of Struct: ");
-    Serial.println(sizeof(salus_data_t));
+    Serial.println(sizeof(mule_data_t));
     Serial.print("Data_DIM: ");
     Serial.println(DATA_DIM);
     Serial.print("FILL_DIM: ");
