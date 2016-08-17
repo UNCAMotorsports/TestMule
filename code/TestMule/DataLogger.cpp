@@ -21,8 +21,8 @@ const uint16_t FILL_DIM = 512 - DATA_DIM*sizeof(mule_data_t);
 // Maximum file size in blocks.
 // The program creates a contiguous file with FILE_BLOCK_COUNT 512 byte blocks.
 // This file is flash erased using special SD commands.
-// 51430 entries is good for 3600 seconds of logging (60 minutes)
-const uint32_t FILE_BLOCK_COUNT = 51430;
+// 24000 entries is good for 3600 seconds of logging (60 minutes)
+const uint32_t FILE_BLOCK_COUNT = 24000;
 
 // max number of blocks to erase per erase call
 uint32_t const ERASE_SIZE = 262144L;
@@ -55,9 +55,13 @@ void DataLogger::addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_
 void DataLogger::fastLog(){
     if (blockNum == DATA_DIM - 1){
         if (!sd.card()->isBusy()){
+            uint32_t logTime = micros();
             if (!sd.card()->writeData((uint8_t*)&block)){
-                error("fast write failed");
+                //error("fast write failed");
+                Serial.println("Fast write failed");
             }
+            Serial.print("Logging \t");
+            Serial.println(micros() - logTime);
             blockNum = 0;
         }
         else
@@ -85,7 +89,7 @@ void DataLogger::startBinLogger(){
     Serial.print("FILL_DIM: ");
     Serial.println(FILL_DIM);
     Serial.print("Sizeof Block: ");
-    Serial.println(sizeof(block_t));
+    Serial.println(sizeof(block));
     Serial.println();
 #endif
 

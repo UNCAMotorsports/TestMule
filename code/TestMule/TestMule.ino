@@ -47,10 +47,9 @@ DataLogger sdLogger;
 MuleThrottle throttle;
 int16_t leftThrottle = 0;
 int16_t rightThrottle = 0;
-int16_t requestedThrottle = 0;
+uint16_t requestedThrottle = 0;
 
 uint32_t lastTime;
-
 
 
 // Set up variables for tracking RPM
@@ -148,7 +147,7 @@ void loop()
         throttleTask();
         throttle_flag = false;
     }
-    else if (logging_flag) 
+    else if (logging_flag)
     {
         // Add an entry to the logging buffer
         sdLogger.addEntry(micros(), requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
