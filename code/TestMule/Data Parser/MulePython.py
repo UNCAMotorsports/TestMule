@@ -13,9 +13,10 @@ import os
 keys = ("Version","Millis","Throttle","Left","Right","Steer","Speed")
 structFormat = "<BIHhhfH"
 dataSize = 512//struct.calcsize(structFormat)*struct.calcsize(structFormat)
-dataEntries = []
+
 for filename in os.listdir():
     if ".mule" in filename:
+        dataEntries = []
         fileSize = os.stat(filename).st_size
         with open(filename, "rb") as inFile:
             for x in range(fileSize//512):
