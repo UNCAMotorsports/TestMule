@@ -26,11 +26,13 @@ bool logging_flag = false;
 
 IntervalTimer loopTimer;
 uint32_t timer = 0;
+uint32_t globalClock = 0;
 
 // Runs in an interrupt and sets the flags for our multi-rate main loop
 void multiRateISR(){
     
     timer++;
+    globalClock++;
 
     if (timer % THROTTLE_RATE == 0) { throttle_flag = true; }
     if (timer % STEERING_RATE == 0) { steering_flag = true; }
@@ -61,7 +63,7 @@ uint32_t leftRPM = 0;
 uint32_t rightRPM = 0;
 float omega_vehicle;
 
-float steerAngle;
+float steerAngle = 0.0;
 
 void setup()
 {
@@ -150,7 +152,7 @@ void loop()
     else if (logging_flag)
     {
         // Add an entry to the logging buffer
-        sdLogger.addEntry(micros(), requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
+        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
         sdLogger.fastLog();
         logging_flag = false;
     }
@@ -199,7 +201,6 @@ void rpmTask(){
 * ---------------------------------------------------------------------------- */
 void steeringTask(){
     uint16_t steeringPot0;
-    float steerAngle;
 
     steeringPot0 = analogRead(STEERING0_PIN);
     steerAngle = (steeringPot0 - STEERING_CENTER) * RAD_PER_VAL;
