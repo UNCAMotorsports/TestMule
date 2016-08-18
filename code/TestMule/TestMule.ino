@@ -61,6 +61,9 @@ volatile uint32_t numLeftPulses = 0;
 volatile uint32_t numRightPulses = 0;
 uint32_t leftRPM = 0;
 uint32_t rightRPM = 0;
+uint32_t leftArray[10];
+uint32_t rightArray[10];
+uint8_t rpmIndex = 0;
 float omega_vehicle;
 
 float steerAngle = 0.0;
@@ -152,7 +155,7 @@ void loop()
     else if (logging_flag)
     {
         // Add an entry to the logging buffer
-        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
+        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM/10);
         sdLogger.fastLog();
         logging_flag = false;
     }
@@ -173,9 +176,19 @@ void rpmTask(){
 #ifdef DEBUG_PROFILING
     uint16_t profiler = micros();
 #endif
+    leftRPM -= leftArray[rpmIndex];
+    leftArray[rpmIndex] = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
+    leftRPM += leftArray[rpmIndex];
 
-    leftRPM = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
-    rightRPM = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
+    rightRPM -= rightArray[rpmIndex];
+    rightArray[rpmIndex] = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
+    rightRPM += rightArray[rpmIndex];
+
+    rpmIndex++;
+    if (rpmIndex == 10){
+        rpmIndex = 0;
+    }
+
     numLeftPulses = 0;
     numRightPulses = 0;
     lastLeftTime = micros();
@@ -190,7 +203,7 @@ void rpmTask(){
 #endif
 
 #ifdef DEBUG_RPM
-    Serial.printf("Right RPM: %d\n", rightRPM);
+    Serial.printf("Right RPM: %d\n", rightRPM/10);
 #endif
 }
 /* ---------------------------------------------------------------------------- */

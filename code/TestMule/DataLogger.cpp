@@ -55,13 +55,10 @@ void DataLogger::addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_
 void DataLogger::fastLog(){
     if (blockNum == DATA_DIM - 1){
         if (!sd.card()->isBusy()){
-            uint32_t logTime = micros();
             if (!sd.card()->writeData((uint8_t*)&block)){
                 //error("fast write failed");
                 Serial.println("Fast write failed");
             }
-            Serial.print("Logging \t");
-            Serial.println(micros() - logTime);
             blockNum = 0;
         }
         else
@@ -103,7 +100,7 @@ void DataLogger::startBinLogger(){
     // Find a filename that hasn't been used already
     do
     {
-        sprintf(sName, "Mule_Data_%d.bin", number++);
+        sprintf(sName, "Mule_Data_%d.mule", number++);
     } while (sd.exists(sName));
 
     binFile.close();

@@ -10,7 +10,7 @@ import os
 #   float steer;
 #   uint16_t speed;
 
-keys = ("Version","Micros","Throttle","Left","Right","Steer","Speed")
+keys = ("Version","Millis","Throttle","Left","Right","Steer","Speed")
 structFormat = "<BIHhhfH"
 dataSize = 512//struct.calcsize(structFormat)*struct.calcsize(structFormat)
 dataEntries = []
