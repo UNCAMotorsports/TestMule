@@ -61,8 +61,10 @@ volatile uint32_t numLeftPulses = 0;
 volatile uint32_t numRightPulses = 0;
 uint32_t leftRPM = 0;
 uint32_t rightRPM = 0;
-uint32_t leftArray[10];
-uint32_t rightArray[10];
+uint32_t leftAccumulator = 0;
+uint32_t rightAccumulator = 0;
+uint32_t leftArray[THROTTLE_FILTER_POLES];
+uint32_t rightArray[THROTTLE_FILTER_POLES];
 uint8_t rpmIndex = 0;
 float omega_vehicle;
 
@@ -155,7 +157,7 @@ void loop()
     else if (logging_flag)
     {
         // Add an entry to the logging buffer
-        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM/10);
+        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
         sdLogger.fastLog();
         logging_flag = false;
     }
@@ -176,16 +178,20 @@ void rpmTask(){
 #ifdef DEBUG_PROFILING
     uint16_t profiler = micros();
 #endif
-    leftRPM -= leftArray[rpmIndex];
+    // Calculate left RPM w/ moving average
+    leftAccumulator -= leftArray[rpmIndex];
     leftArray[rpmIndex] = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
-    leftRPM += leftArray[rpmIndex];
+    leftAccumulator += leftArray[rpmIndex];
+    leftRPM = leftAccumulator / THROTTLE_FILTER_POLES;
 
-    rightRPM -= rightArray[rpmIndex];
+    // right RPM Moving Average
+    rightAccumulator -= rightArray[rpmIndex];
     rightArray[rpmIndex] = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
-    rightRPM += rightArray[rpmIndex];
+    rightAccumulator += rightArray[rpmIndex];
+    rightRPM = rightAccumulator / THROTTLE_FILTER_POLES;
 
     rpmIndex++;
-    if (rpmIndex == 10){
+    if (rpmIndex >= THROTTLE_FILTER_POLES){
         rpmIndex = 0;
     }
 
@@ -203,7 +209,7 @@ void rpmTask(){
 #endif
 
 #ifdef DEBUG_RPM
-    Serial.printf("Right RPM: %d\n", rightRPM/10);
+    Serial.printf("Right RPM: %d\n", rightRPM);
 #endif
 }
 /* ---------------------------------------------------------------------------- */

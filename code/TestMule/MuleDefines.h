@@ -34,4 +34,5 @@
 
 #define DIFFERENTIAL_MODE   (1)
 #define STEERING_CENTER     (2535)
+#define THROTTLE_FILTER_POLES (10)
 
