@@ -3,7 +3,7 @@
 // 
 
 #include "MuleThrottle.h"
-#include "Vehicle_Stats.h"
+#include "MuleDefines.h"
 
 
 MuleThrottle::MuleThrottle()

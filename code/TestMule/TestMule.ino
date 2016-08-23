@@ -1,50 +1,75 @@
-/* UNC Asheville Motorsports 2016 test mule code
-*/
+/* UNC Asheville Motorsports 2016 test mule code */
 
-
-// Standard Headers
-#include "MuleThrottle.h"
-#include <SPI.h>
-#include <FlexCAN.h>
-#include <kinetis_flexcan.h>
 #include <i2c_t3.h>
-
-// Non-standard Headers
+#include <Arduino.h>
+#include "MuleDefines.h"
 #include "DAC_MCP49xx.h"
 #include "DataLogger.h"
-#include "Vehicle_Stats.h"
+#include "MuleThrottle.h"
 
-// SDFatLib Headers
-#include <SdFat.h>
 
-#if defined(DEBUG_THROTTLE) || defined(DEBUG_RPM) || defined(DEBUG_PROFILING)
-#define DEBUG_CAR
-#endif
+/* ---------------------------------------------------------------------------- +
+ *
+ *      Set up the multi-rate main loop timer
+ *
+ * ---------------------------------------------------------------------------- */
+#define TIMER_RATE          (1000)                          // Check the timer every 1 millisecond
+#define RPM_RATE            (TIMER_RATE / 200)             // How often to check if we've stopped getting RPM readings
+#define THROTTLE_RATE       (TIMER_RATE / 200)             // Read throttle at 200Hz
+#define STEERING_RATE       (TIMER_RATE / 200)             // Read steering at 200Hz
+#define LOGGING_RATE        (TIMER_RATE / 200)             // Create data entries at 200Hz (10-entry FIFO)
+
+bool rpm_flag = false;
+bool throttle_flag = false;
+bool steering_flag = false;
+bool logging_flag = false;
+
+IntervalTimer loopTimer;
+uint32_t timer = 0;
+uint32_t globalClock = 0;
+
+// Runs in an interrupt and sets the flags for our multi-rate main loop
+void multiRateISR(){
+    
+    timer++;
+    globalClock++;
+
+    if (timer % THROTTLE_RATE == 0) { throttle_flag = true; }
+    if (timer % STEERING_RATE == 0) { steering_flag = true; }
+    if (timer % RPM_RATE == 0)      { rpm_flag = true; }
+    if (timer % LOGGING_RATE == 0)  { logging_flag = true; }
+    if (timer >= TIMER_RATE)        { timer = 0; }
+}
+/* ---------------------------------------------------------------------------- */
 
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
 DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
 
-DataLogger sdLogger(CS_SD, SPI_FULL_SPEED);
+DataLogger sdLogger;
 MuleThrottle throttle;
+int16_t leftThrottle = 0;
+int16_t rightThrottle = 0;
+uint16_t requestedThrottle = 0;
 
-uint32_t lastTime, thisTime;
-
-int32_t omega_left;
-int32_t omega_right;
-int32_t omega_vehicle;
-
-int16_t requestedThrottle;
-int16_t leftThrottle;
-int16_t rightThrottle;
-
-int16_t steeringLeft;
-int16_t steeringRight;
-int16_t steeringCenter;
-
-volatile uint32_t leftPulses;
-volatile uint32_t rightPulses;
+uint32_t lastTime;
 
 
+// Set up variables for tracking RPM
+uint32_t lastLeftTime;
+uint32_t lastRightTime;
+volatile uint32_t numLeftPulses = 0;
+volatile uint32_t numRightPulses = 0;
+uint32_t leftRPM = 0;
+uint32_t rightRPM = 0;
+uint32_t leftAccumulator = 0;
+uint32_t rightAccumulator = 0;
+uint32_t leftArray[THROTTLE_FILTER_POLES];
+uint32_t rightArray[THROTTLE_FILTER_POLES];
+uint8_t rpmIndex = 0;
+float omega_vehicle;
+
+float steerAngle = 0.0;
+float tanSteer = 0.0;
 
 void setup()
 {
@@ -58,21 +83,21 @@ void setup()
     pinMode(LEFT_ENC_PIN, INPUT);
     pinMode(RIGHT_ENC_PIN, INPUT);
 
-    digitalWrite(CS_FLASH, HIGH);
-    digitalWrite(CS_DAC0, HIGH);
-    digitalWrite(CS_DAC1, HIGH);
-    digitalWrite(CS_SD, HIGH);
+    // Set the default states for the various pins we're using
+    digitalWriteFast(CS_FLASH, HIGH);
+    digitalWriteFast(CS_DAC0, HIGH);
+    digitalWriteFast(CS_DAC1, HIGH);
+    digitalWriteFast(CS_SD, HIGH);
 
-    digitalWrite(LATCH_PIN, LOW);   // LOW if you want the DAC values to change immediately.
+    digitalWriteFast(LATCH_PIN, LOW);   // LOW if you want the DAC values to change immediately.
 
     // Attach functions to interrupts for the encoders
     attachInterrupt(digitalPinToInterrupt(LEFT_ENC_PIN), pulseLeft, CHANGE);
     attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
 
-#ifdef DEBUG_CAR
+    // Start Serial Communications with a host computer
     Serial.begin(115200);
     delay(1000);
-#endif // DEBUG
 
     // Set Up DACs
     dac0.setSPIDivider(SPI_CLOCK_DIV8);
@@ -86,6 +111,7 @@ void setup()
     analogReadResolution(12);
     analogReadAveraging(4);
 
+    // Initialize the throttle sensor
     throttle.init();
 
 #ifdef DEBUG_THROTTLE
@@ -94,102 +120,194 @@ void setup()
     Serial.printf("Throttle Max:\t%d\n", throttle.getThrottleMax());
 #endif
 
-    sdLogger.begin("TestFile.csv");
-    
+    // Start datalogging
+    sdLogger.startBinLogger();
 
-    steeringCenter = 2535;
-    // Take a first time reading
+    loopTimer.begin(multiRateISR, TIMER_RATE);        // Start the main loop timer
+
+    lastLeftTime = micros();
+    lastRightTime = micros();
     lastTime = micros();
 }
 
-
+/* ---------------------------------------------------------------------------- +
+*       Main Loop
+*  ---------------------------------------------------------------------------- */
 void loop()
 {
-    uint32_t timer = micros() - lastTime;
-    if (timer >= POLLING_TIME)
-    {
-        lastTime = micros();
-        omega_left = leftPulses*ENC_TO_RPM / timer;
-        omega_right = rightPulses*ENC_TO_RPM / timer;
-        omega_vehicle = (simple_max(omega_left, omega_right) + simple_min(omega_left, omega_right)) / 2;
-
-#ifdef DEBUG_RPM
-        Serial.printf("Left pulses: %d\tRightPulses: %d\n", leftPulses, rightPulses);
-        Serial.printf("Left RPM: %d\tRight RPM: %d\n", omega_left, omega_right);
-#endif
-        leftPulses = 0;
-        rightPulses = 0;
-
-
-        requestedThrottle = throttle.getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
-        requestedThrottle = simple_constrain(requestedThrottle, throttle.getThrottleMin(), throttle.getThrottleMax());
-        requestedThrottle -= throttle.getThrottleMin();
-        requestedThrottle = requestedThrottle / (double)throttle.getThrottleRange() * 4095;
-
-        if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
-            requestedThrottle = 0;
-
-#ifdef DEBUG_THROTTLE
-        Serial.printf("\tRequested: %d\n", requestedThrottle);
-#endif
-        switch (DIFFERENTIAL_MODE)
-        {
-        case 0:
-            leftThrottle = requestedThrottle;
-            rightThrottle = requestedThrottle;
-            break;
-        case 1:
-            double steerAngle = getSteeringAngle();
-            rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
-            leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
-#ifdef DEBUG_THROTTLE
-            Serial.printf("Delta: %f\n", requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle);
-#endif
-            if (rightThrottle > 4095){
-                double ratio = 4095.0 / rightThrottle;
-                rightThrottle *= ratio;
-                leftThrottle *= ratio;
-            }
-            rightThrottle = simple_constrain(rightThrottle, 0, 4095);
-            leftThrottle = simple_constrain(leftThrottle, 0, 4095);
-            break;
-        }
-#ifdef DEBUG_THROTTLE
-        Serial.printf("Left Throttle: %d\tRight Throttle: %d\n",leftThrottle,rightThrottle);
-#endif
-        // Write to the DACs
-        dac0.output(leftThrottle);
-        dac1.output(rightThrottle);
 
 #ifdef DEBUG_PROFILING
-        Serial.println(micros()-lastTime);
-#endif // DEBUG_PROFILING
-        sdLogger.addEntry(millis(), leftThrottle, rightThrottle, getSteeringAngle()*100, omega_right);
+    uint16_t profiler = micros();
+#endif
+
+    if (rpm_flag) 
+    {
+        rpmTask();
+        rpm_flag = false;
     }
+    else if (steering_flag) 
+    {
+        steeringTask();
+        steering_flag = false;
+    }
+    else if (throttle_flag) 
+    {
+        throttleTask();
+        throttle_flag = false;
+    }
+    else if (logging_flag)
+    {
+        // Add an entry to the logging buffer
+        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
+        sdLogger.fastLog();
+        logging_flag = false;
+    }
+
+#ifdef DEBUG_PROFILING
+    profiler = micros() - profiler;
+    Serial.print("Loop Time: ");
+    Serial.println(profiler);
+#endif
 }
+/* ---------------------------------------------------------------------------- */
 
-void pulseLeft(){
-    leftPulses++;
+/* ---------------------------------------------------------------------------- +
+*       Check for RPM timeout (where the wheel has stopped)
+*  ---------------------------------------------------------------------------- */
+void rpmTask(){
+
+#ifdef DEBUG_PROFILING
+    uint16_t profiler = micros();
+#endif
+    // Calculate left RPM w/ moving average
+    leftAccumulator -= leftArray[rpmIndex];
+    leftArray[rpmIndex] = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
+    leftAccumulator += leftArray[rpmIndex];
+    leftRPM = leftAccumulator / THROTTLE_FILTER_POLES;
+
+    // right RPM Moving Average
+    rightAccumulator -= rightArray[rpmIndex];
+    rightArray[rpmIndex] = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
+    rightAccumulator += rightArray[rpmIndex];
+    rightRPM = rightAccumulator / THROTTLE_FILTER_POLES;
+
+    rpmIndex++;
+    if (rpmIndex >= THROTTLE_FILTER_POLES){
+        rpmIndex = 0;
+    }
+
+    numLeftPulses = 0;
+    numRightPulses = 0;
+    lastLeftTime = micros();
+    lastRightTime = micros();
+
+    //omega_vehicle = (simple_max(leftRPM, rightRPM) + simple_min(leftRPM, rightRPM)) / 2.0;
+
+#ifdef DEBUG_PROFILING
+    profiler = micros() - profiler;
+    Serial.print("RPM Time: ");
+    Serial.println(profiler);
+#endif
+
+#ifdef DEBUG_RPM
+    Serial.printf("Right RPM: %d\n", rightRPM);
+#endif
 }
-
-void pulseRight(){
-    rightPulses++;
-}
+/* ---------------------------------------------------------------------------- */
 
 
-// Return the tangent of the steering angle, in degrees.
-double getSteeringAngle()
-{
+/* ---------------------------------------------------------------------------- +
+*   Find the tangent of the steering angle
+* ---------------------------------------------------------------------------- */
+void steeringTask(){
     uint16_t steeringPot0;
-    double steerAngle;
 
     steeringPot0 = analogRead(STEERING0_PIN);
-    steerAngle = (steeringPot0 - steeringCenter) * RAD_PER_VAL;
+    steerAngle = (steeringPot0 - STEERING_CENTER) * RAD_PER_VAL;
 
 #ifdef DEBUG_STEERING
 
-    Serial.printf("Raw Steering: %d\tSteer Angle: %f\n", steeringPot0, steerAngle);
+    Serial.printf("Raw Steering: %d\tSteer Angle: %0.2f\n", steeringPot0, steerAngle);
 #endif
 
-    return tan(steerAngle*PI/180);
+    tanSteer = tan(radians(steerAngle));
+}
+/* ---------------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------------------- +
+*   Poll the throttle sensor and calculate the differential action to each wheel
+* ---------------------------------------------------------------------------- */
+void throttleTask(){
+
+#ifdef DEBUG_PROFILING
+    uint16_t profiler = micros();
+#endif
+
+    requestedThrottle = throttle.getThrottle(THROTTLE0_PIN);    // Safe throttle will need a better algorithm to handle noise
+    requestedThrottle = simple_constrain(requestedThrottle, throttle.getThrottleMin(), throttle.getThrottleMax());
+    requestedThrottle -= throttle.getThrottleMin();
+    requestedThrottle = requestedThrottle / (double)throttle.getThrottleRange() * 4095;
+
+    if (requestedThrottle < 75)     // Filter the lowest values so the car doesn't crawl
+        requestedThrottle = 0;
+
+#ifdef DEBUG_THROTTLE
+    Serial.printf("\tRequested: %d\n", requestedThrottle);
+#endif
+
+    switch (DIFFERENTIAL_MODE)
+    {
+    case 0:
+        leftThrottle = requestedThrottle;
+        rightThrottle = requestedThrottle;
+        break;
+    case 1:
+
+        rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer;
+        leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer;
+
+#ifdef DEBUG_THROTTLE
+        Serial.printf("Delta: %f\n", requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer);
+#endif
+        double ratio = 1.0;
+        if (rightThrottle > 4095){
+            ratio = 4095.0 / rightThrottle;
+        }
+        else if (leftThrottle > 4095){
+            ratio = 4095.0 / leftThrottle;
+        }
+
+        rightThrottle *= ratio;
+        leftThrottle *= ratio;
+
+        // The throttles should already be constrained by the above calculation, but just to make sure...
+        rightThrottle = simple_constrain(rightThrottle, 0, 4095);
+        leftThrottle = simple_constrain(leftThrottle, 0, 4095);
+        break;
+    }
+
+#ifdef DEBUG_THROTTLE
+    Serial.printf("Left Throttle: %d\tRight Throttle: %d\n", leftThrottle, rightThrottle);
+#endif
+    // Write to the DACs
+    dac0.output(leftThrottle);
+    dac1.output(rightThrottle);
+
+#ifdef DEBUG_PROFILING
+    profiler = micros() - profiler;
+    Serial.print("Throttle Time: ");
+    Serial.println(profiler);
+#endif
+}
+/* ---------------------------------------------------------------------------- */
+
+// Called when we get a wheel encoder pulse from the left
+void pulseLeft(){
+    numLeftPulses++;
+}
+
+// Called when we get a wheel encoder pulse from the right
+void pulseRight(){
+    numRightPulses++;
 }
