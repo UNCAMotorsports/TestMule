@@ -69,6 +69,7 @@ uint8_t rpmIndex = 0;
 float omega_vehicle;
 
 float steerAngle = 0.0;
+float tanSteer = 0.0;
 
 void setup()
 {
@@ -229,7 +230,7 @@ void steeringTask(){
     Serial.printf("Raw Steering: %d\tSteer Angle: %0.2f\n", steeringPot0, steerAngle);
 #endif
 
-    steerAngle = tan(radians(steerAngle));
+    tanSteer = tan(radians(steerAngle));
 }
 /* ---------------------------------------------------------------------------- */
 
@@ -263,17 +264,17 @@ void throttleTask(){
         break;
     case 1:
 
-        rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
-        leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle;
+        rightThrottle = requestedThrottle + requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer;
+        leftThrottle = requestedThrottle - requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer;
 
 #ifdef DEBUG_THROTTLE
-        Serial.printf("Delta: %f\n", requestedThrottle * .5 * TRACK_TO_WHEEL * steerAngle);
+        Serial.printf("Delta: %f\n", requestedThrottle * .5 * TRACK_TO_WHEEL * tanSteer);
 #endif
         double ratio = 1.0;
         if (rightThrottle > 4095){
             ratio = 4095.0 / rightThrottle;
         }
-        else if (rightThrottle > 4095){
+        else if (leftThrottle > 4095){
             ratio = 4095.0 / leftThrottle;
         }
 

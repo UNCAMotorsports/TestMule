@@ -2,7 +2,7 @@
 
 // Comment or remove these definitions to stop respective debug code from being compiled
 //#define DEBUG_THROTTLE
-#define DEBUG_RPM
+//#define DEBUG_RPM
 //#define DEBUG_STEERING
 //#define DEBUG_PROFILING
 //#define LOGGER_DEBUG
@@ -23,7 +23,7 @@
 #define STEERING0_PIN       (A2)
 #define STEERING1_PIN       (A3)
 
-#define ENC_TO_RPM		    (75000)    // 400 ppr effective
+#define ENC_TO_RPM		    (75000)    // 800 ppr effective
 #define LEFT_ENC_PIN	    (5)
 #define RIGHT_ENC_PIN	    (6)
 #define WHEELBASE_IN        (72.0)      // In Inches

@@ -41,6 +41,7 @@ DataLogger::DataLogger()
     numEntries = 0;
 }
 
+// Add a data entry to the buffer
 void DataLogger::addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, float steering, uint16_t speed){
     block.data[blockNum].dataVersion = 1;
     block.data[blockNum].time = time;
@@ -68,7 +69,9 @@ void DataLogger::fastLog(){
         blockNum++;
 }
 
-// Write the first line of the 
+// Write the first line of the CSV file.
+// 
+// Deprecated
 void DataLogger::writeHeader() {
     file.printf(F("Version,millis,throttle,Left,Right,Steering Angle,Wheel Speed\n"));
     if (!file.sync() || file.getWriteError()) {
@@ -76,6 +79,7 @@ void DataLogger::writeHeader() {
     }
 }
 
+// Starts a new binary file using 512 block writes on the SD card.
 void DataLogger::startBinLogger(){
 
 #ifdef LOGGER_DEBUG
