@@ -6,6 +6,7 @@
 //#define DEBUG_STEERING
 //#define DEBUG_PROFILING
 //#define LOGGER_DEBUG
+#define LOGGING
 
 // Teensy's max and min macros use non-standard gnu extensions... these are simpler for integers etc.
 #define simple_max(a,b) (((a)>(b)) ? (a) : (b))

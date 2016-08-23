@@ -155,6 +155,7 @@ void loop()
         throttleTask();
         throttle_flag = false;
     }
+#ifdef LOGGING
     else if (logging_flag)
     {
         // Add an entry to the logging buffer
@@ -162,6 +163,7 @@ void loop()
         sdLogger.fastLog();
         logging_flag = false;
     }
+#endif
 
 #ifdef DEBUG_PROFILING
     profiler = micros() - profiler;
