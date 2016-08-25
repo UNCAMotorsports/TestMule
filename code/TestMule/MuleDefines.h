@@ -24,7 +24,8 @@
 #define STEERING0_PIN       (A2)
 #define STEERING1_PIN       (A3)
 
-#define ENC_TO_RPM		    (75000)    // 800 ppr effective
+#define ENC_TO_RPM_RIGHT    (75000)    // 800 ppr effective
+#define ENC_TO_RPM_LEFT     (50000)
 #define LEFT_ENC_PIN	    (5)
 #define RIGHT_ENC_PIN	    (6)
 #define WHEELBASE_IN        (72.0)      // In Inches
@@ -33,7 +34,7 @@
 
 #define RAD_PER_VAL         (.05)
 
-#define DIFFERENTIAL_MODE   (1)
+#define DIFFERENTIAL_MODE   (0)
 #define STEERING_CENTER     (2535)
 #define THROTTLE_FILTER_POLES (10)
 

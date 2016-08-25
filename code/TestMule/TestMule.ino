@@ -80,7 +80,7 @@ void setup()
     pinMode(CS_SD, OUTPUT);
     pinMode(LATCH_PIN, OUTPUT);
 
-    pinMode(LEFT_ENC_PIN, INPUT);
+    pinMode(LEFT_ENC_PIN, INPUT_PULLUP);
     pinMode(RIGHT_ENC_PIN, INPUT);
 
     // Set the default states for the various pins we're using
@@ -159,7 +159,7 @@ void loop()
     else if (logging_flag)
     {
         // Add an entry to the logging buffer
-        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, rightRPM);
+        sdLogger.addEntry(globalClock, requestedThrottle, leftThrottle, rightThrottle, steerAngle, leftRPM, rightRPM);
         sdLogger.fastLog();
         logging_flag = false;
     }
@@ -183,13 +183,13 @@ void rpmTask(){
 #endif
     // Calculate left RPM w/ moving average
     leftAccumulator -= leftArray[rpmIndex];
-    leftArray[rpmIndex] = numLeftPulses * ENC_TO_RPM / (micros() - lastLeftTime);
+    leftArray[rpmIndex] = numLeftPulses * ENC_TO_RPM_LEFT / (micros() - lastLeftTime);
     leftAccumulator += leftArray[rpmIndex];
     leftRPM = leftAccumulator / THROTTLE_FILTER_POLES;
 
     // right RPM Moving Average
     rightAccumulator -= rightArray[rpmIndex];
-    rightArray[rpmIndex] = numRightPulses * ENC_TO_RPM / (micros() - lastRightTime);
+    rightArray[rpmIndex] = numRightPulses * ENC_TO_RPM_RIGHT / (micros() - lastRightTime);
     rightAccumulator += rightArray[rpmIndex];
     rightRPM = rightAccumulator / THROTTLE_FILTER_POLES;
 
@@ -212,7 +212,10 @@ void rpmTask(){
 #endif
 
 #ifdef DEBUG_RPM
-    Serial.printf("Right RPM: %d\n", rightRPM);
+    Serial.print("Left RPM: ");
+    Serial.print(leftRPM);
+    Serial.print("Right RPM: ");
+    Serial.println(rightRPM);
 #endif
 }
 /* ---------------------------------------------------------------------------- */

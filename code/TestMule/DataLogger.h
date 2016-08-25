@@ -17,14 +17,15 @@ typedef struct __attribute__ ((packed)) {
     // Floats are 32-bit on Teensy 3.x with Teensyduino 1.6.x
     // Doubles are 64-bit on Teensy 3.x with Teensyduino 1.6.x
 
-    uint8_t dataVersion = 1;    // Increment every time this struct changes
+    uint8_t dataVersion = 2;    // Increment every time this struct changes
 
     uint32_t time;
     uint16_t throttle;
     int16_t left;
     int16_t right;
     float steer;
-    uint16_t speed;
+    uint16_t leftRPM;
+    uint16_t rightRPM;
 
 } mule_data_t;
 
@@ -41,7 +42,7 @@ class DataLogger
      DataLogger();
      void init();
      void logData();
-     void addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, float steering, uint16_t speed);
+     void addEntry(uint32_t time, uint16_t throttle, int16_t left, int16_t right, float steering, uint16_t leftRPM, uint16_t rightRPM);
      void writeHeader();
      void startBinLogger();
      void fastLog();

@@ -10,8 +10,8 @@ import os
 #   float steer;
 #   uint16_t speed;
 
-keys = ("Version","Millis","Throttle","Left","Right","Steer","Speed")
-structFormat = "<BIHhhfH"
+keys = ("Version","Millis","Throttle","Left","Right","Steer","leftRPM","rightRPM")
+structFormat = "<BIHhhfHH"
 dataSize = 512//struct.calcsize(structFormat)*struct.calcsize(structFormat)
 
 for filename in os.listdir():
