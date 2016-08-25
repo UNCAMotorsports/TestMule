@@ -214,7 +214,7 @@ void rpmTask(){
 #ifdef DEBUG_RPM
     Serial.print("Left RPM: ");
     Serial.print(leftRPM);
-    Serial.print("Right RPM: ");
+    Serial.print("\tRight RPM: ");
     Serial.println(rightRPM);
 #endif
 }
