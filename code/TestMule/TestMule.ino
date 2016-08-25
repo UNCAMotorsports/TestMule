@@ -121,7 +121,9 @@ void setup()
 #endif
 
     // Start datalogging
+#ifdef LOGGING
     sdLogger.startBinLogger();
+#endif
 
     loopTimer.begin(multiRateISR, TIMER_RATE);        // Start the main loop timer
 
