@@ -81,7 +81,7 @@ void setup()
     pinMode(LATCH_PIN, OUTPUT);
 
     pinMode(LEFT_ENC_PIN, INPUT_PULLUP);
-    pinMode(RIGHT_ENC_PIN, INPUT);
+    pinMode(RIGHT_ENC_PIN, INPUT_PULLUP);
 
     // Set the default states for the various pins we're using
     digitalWriteFast(CS_FLASH, HIGH);
