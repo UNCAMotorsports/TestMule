@@ -32,9 +32,9 @@
 #define REAR_TRACK_IN       (42.0)      // In inches
 #define TRACK_TO_WHEEL      (REAR_TRACK_IN/WHEELBASE_IN)
 
-#define RAD_PER_VAL         (.05)
+#define RAD_PER_VAL         (.03)
 
-#define DIFFERENTIAL_MODE   (0)
+#define DIFFERENTIAL_MODE   (1)
 #define STEERING_CENTER     (2535)
 #define THROTTLE_FILTER_POLES (10)
 
