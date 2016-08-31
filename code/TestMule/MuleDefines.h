@@ -34,7 +34,7 @@
 
 #define RAD_PER_VAL         (.05)
 
-#define DIFFERENTIAL_MODE   (1)
+#define DIFFERENTIAL_MODE   (0)
 #define STEERING_CENTER     (2535)
 #define THROTTLE_FILTER_POLES (10)
 
