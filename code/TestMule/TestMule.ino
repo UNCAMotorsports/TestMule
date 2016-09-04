@@ -96,7 +96,7 @@ void setup()
     attachInterrupt(digitalPinToInterrupt(RIGHT_ENC_PIN), pulseRight, CHANGE);
 
     // Start Serial Communications with a host computer
-    Serial.begin(115200);
+    Serial.begin(250000);
     delay(1000);
 
     // Set Up DACs
