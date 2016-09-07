@@ -1,7 +1,6 @@
 /* UNC Asheville Motorsports 2016 test mule code */
 
 #include <i2c_t3.h>
-#include <SPI.h>
 #include <Arduino.h>
 #include "MuleDefines.h"
 #include "DAC_MCP49xx.h"
