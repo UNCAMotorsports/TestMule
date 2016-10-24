@@ -35,7 +35,7 @@ int16_t MuleThrottle::getThrottle(uint8_t throttlePin)
 #endif
 
     if (throttlePot > 3684 || throttlePot < 410){
-        Serial.printf(F("Warning:  Throttle out of range: %d"), throttlePot);
+        Serial.printf(F("\nWarning:  Throttle out of range: %d"), throttlePot);
         return -1;
     }
 
@@ -86,12 +86,14 @@ int16_t MuleThrottle::getSafeThrottle()
 #endif
 
     if (throttlePot0 > 3684 || throttlePot0 < 410){
-        Serial.printf(F("\nWarning:  Throttle 0 out of range: %d"), throttlePot0);
+        Serial.print(F("\nWarning:  Throttle 0 out of range: "));
+        Serial.println(throttlePot0);
         return -1;
     }
     else if (throttlePot1 > 3684 || throttlePot1 < 410)
     {
-        Serial.printf(F("\nWarning:  Throttle 1 out of range: %d"), throttlePot1);
+        Serial.print(F("\nWarning:  Throttle 1 out of range: "));
+        Serial.println(throttlePot1);
         return -1;
     }
 

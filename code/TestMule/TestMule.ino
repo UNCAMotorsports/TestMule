@@ -1,5 +1,7 @@
 /* UNC Asheville Motorsports 2016 test mule code */
 
+#include <kinetis_flexcan.h>
+#include <FlexCAN.h>
 #include <i2c_t3.h>
 #include <Arduino.h>
 #include "MuleDefines.h"
@@ -35,7 +37,7 @@ void multiRateISR(){
     timer++;
     globalClock++;
 
-    if (timer % THROTTLE_RATE == 0) { throttle_flag = true; }
+    //if (timer % THROTTLE_RATE == 0) { throttle_flag = true; }
     if (timer % STEERING_RATE == 0) { steering_flag = true; }
     if (timer % RPM_RATE == 0)      { rpm_flag = true; }
     if (timer % LOGGING_RATE == 0)  { logging_flag = true; }
@@ -45,6 +47,10 @@ void multiRateISR(){
 
 DAC_MCP49xx dac0(DAC_MCP49xx::MCP4921, CS_DAC0);
 DAC_MCP49xx dac1(DAC_MCP49xx::MCP4921, CS_DAC1);
+
+FlexCAN CANBus(1000000);
+
+static CAN_message_t rxmsg;
 
 DataLogger sdLogger;
 MuleThrottle throttle;
@@ -126,6 +132,7 @@ void setup()
     sdLogger.startBinLogger();
 #endif
 
+    CANBus.begin();
     loopTimer.begin(multiRateISR, TIMER_RATE);        // Start the main loop timer
 
     lastLeftTime = micros();
@@ -133,11 +140,25 @@ void setup()
     lastTime = micros();
 }
 
+uint16_t CANtoDEC(uint8_t* arr){
+    return (uint32_t)arr[0] << 8 | arr[1];
+}
+
 /* ---------------------------------------------------------------------------- +
 *       Main Loop
 *  ---------------------------------------------------------------------------- */
 void loop()
 {
+    if (CANBus.available())
+    {
+        while (CANBus.read(rxmsg)){
+            Serial.print("ID: ");
+            Serial.print(rxmsg.id);
+            Serial.print("\tData: ");
+            Serial.printf("%d ", CANtoDEC(rxmsg.buf));
+            Serial.println();
+        }
+    }
 
 #ifdef DEBUG_PROFILING
     uint16_t profiler = micros();
