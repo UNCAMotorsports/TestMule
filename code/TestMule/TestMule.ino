@@ -8,6 +8,7 @@
 #include "DAC_MCP49xx.h"
 #include "DataLogger.h"
 #include "MuleThrottle.h"
+#include "canheader.h"
 
 
 
@@ -26,6 +27,8 @@ bool rpm_flag = false;
 bool throttle_flag = false;
 bool steering_flag = false;
 bool logging_flag = false;
+
+enum unca_can_id myID;
 
 IntervalTimer loopTimer;
 uint32_t timer = 0;
