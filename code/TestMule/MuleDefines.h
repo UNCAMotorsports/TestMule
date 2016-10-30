@@ -34,9 +34,16 @@
 
 #define RAD_PER_VAL         (.03)
 
-#define DIFFERENTIAL_MODE   (1)
+#define DIFFERENTIAL_MODE   (0)
 #define STEERING_CENTER     (2535)
 #define THROTTLE_FILTER_POLES (10)
 
 #define CANTX               (3)
 #define CANRX               (4)
+#define THROTTLE_ID         (0x040)
+#define STEERING_ID         (0x041)
+#define LEFT_RPM_ID         (0x042)
+#define RIGHT_RPM_ID        (0x043)
+
+#define THROTTLE_MIN        (1350)
+#define THROTTLE_MAX        (3960)
